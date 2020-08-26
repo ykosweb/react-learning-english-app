@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import PracticeWords from "./PracticeWords";
+import LearningWords from "./LearningWords";
 
 let mapStateToProps = (state) => {
   return {
@@ -14,5 +14,5 @@ let mapDispatchToProps = dispatch => {
   }
 }
 
-const PracticeWordsContainer = connect(mapStateToProps, mapDispatchToProps)(PracticeWords)
-export default PracticeWordsContainer;
+const LearningWordsContainer = connect(mapStateToProps, mapDispatchToProps)(LearningWords)
+export default LearningWordsContainer;

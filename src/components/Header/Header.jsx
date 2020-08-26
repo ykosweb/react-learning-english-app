@@ -4,21 +4,21 @@ import {NavLink} from "react-router-dom";
 
 const Header = props => {
   return (
-    <div className={classes.header}>
+    <header className={classes.header}>
       <div>
-        <h3>Easy English</h3>
+        <h3 className={classes.appName}>Easy English</h3>
       </div>
 
-      <div>
+      <nav>
         <NavLink to="/" className={classes.menuLink}>Главная</NavLink>
-        <NavLink to="practice-words" className={classes.menuLink}>Практикуем слова</NavLink>
-      </div>
-      <div>
-        <span>User 123</span>
+        <NavLink to="learning-words" className={classes.menuLink}>Практикуем слова</NavLink>
+        <NavLink to="learning-verbs" className={classes.menuLink}>Неправильные глаголы</NavLink>
+      </nav>
+      <div className={classes.registrationBlock}>
         <button>LogIn</button>
         <button>Registration</button>
       </div>
-    </div>
+    </header>
   )
 };
 

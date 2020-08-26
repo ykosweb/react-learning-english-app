@@ -3,25 +3,31 @@ import classes from "./App.module.sass";
 import Header from "./components/Header/Header";
 import {Route} from "react-router-dom";
 import MainPage from "./components/MainPage/MainPage";
-import PracticeWords from "./components/PracticeWords/PracticeWords";
+import LearningWords from "./components/LearningWords/LearningWords";
+import LearningVerbs from "./components/LearningVerbs/LearningVerbs";
+import Aside from "./components/Aside/Aside";
 
 class App extends React.Component {
-    render() {
-        return (
-            <div className={classes.app}>
-                <Header />
-                <div className={classes.mainContent}>
-                    <Route
-                        exact
-                        path="/"
-                        render={() => <MainPage/>} />
-                    <Route path="/practice-words"
-                           render={() => <PracticeWords/>} />
-
-                </div>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className={classes.app}>
+        <Header/>
+        <main className={classes.main}>
+          <Route
+            exact
+            path="/"
+            render={() => <MainPage/>}/>
+          <Route
+            path="/learning-words"
+            render={() => <LearningWords/>}/>
+          <Route
+            path="/learning-verbs"
+            render={() => <LearningVerbs/>}/>
+        </main>
+        <Aside/>
+      </div>
+    )
+  }
 }
 
 export default App;
