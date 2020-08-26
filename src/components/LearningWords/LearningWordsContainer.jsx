@@ -4,7 +4,7 @@ import LearningWords from "./LearningWords";
 
 let mapStateToProps = (state) => {
   return {
-
+    
   }
 }
 

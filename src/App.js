@@ -3,9 +3,9 @@ import classes from "./App.module.sass";
 import Header from "./components/Header/Header";
 import {Route} from "react-router-dom";
 import MainPage from "./components/MainPage/MainPage";
-import LearningWords from "./components/LearningWords/LearningWords";
 import LearningVerbs from "./components/LearningVerbs/LearningVerbs";
 import Aside from "./components/Aside/Aside";
+import LearningWordsContainer from "./components/LearningWords/LearningWordsContainer";
 
 class App extends React.Component {
   render() {
@@ -19,7 +19,7 @@ class App extends React.Component {
             render={() => <MainPage/>}/>
           <Route
             path="/learning-words"
-            render={() => <LearningWords/>}/>
+            render={() => <LearningWordsContainer/>}/>
           <Route
             path="/learning-verbs"
             render={() => <LearningVerbs/>}/>

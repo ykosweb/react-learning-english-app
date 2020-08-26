@@ -1,8 +1,8 @@
 import {combineReducers, createStore} from "redux";
-import practiceWordsReducer from "./practiceWordsReducer";
+import learningWordsReducer from "./learningWordsReducer";
 
 const reducers = combineReducers( {
-    practiceWords: practiceWordsReducer
+    practiceWords: learningWordsReducer
 })
 
 
