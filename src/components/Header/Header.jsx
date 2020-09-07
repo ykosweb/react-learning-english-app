@@ -11,7 +11,7 @@ const Header = props => {
 
       <nav>
         <NavLink to="/" className={classes.menuLink}>Главная</NavLink>
-        <NavLink to="learning-words" className={classes.menuLink}>Практикуем слова</NavLink>
+        <NavLink to="learning-words" className={classes.menuLink}>Учим Cлова</NavLink>
         <NavLink to="learning-verbs" className={classes.menuLink}>Неправильные глаголы</NavLink>
       </nav>
       <div className={classes.registrationBlock}>
