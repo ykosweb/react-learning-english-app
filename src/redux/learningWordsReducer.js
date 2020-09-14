@@ -28,22 +28,18 @@ let learningWordsReducer = (state = initialState, action) => {
         //     return {...state, numberQuestions: state.questions.length}
         // }
         case CHOSE_ANSWER: {
-            if (state.successWords === 10) {
-                return {...state, completed: true}
+            let activeQuestion = state.questions[state.activeQuestion];
+            if (action.answerId === activeQuestion.rightAnswerId) {
+                return {
+                    ...state,
+                    answerState: {[action.answerId]: "success"},
+                    successWords: state.successWords + 1
+                }
             } else {
-                let activeQuestion = state.questions[state.activeQuestion];
-                if (action.answerId === activeQuestion.rightAnswerId) {
-                    return {
-                        ...state,
-                        answerState: {[action.answerId]: "success"},
-                        successWords: state.successWords + 1
-                    }
-                } else {
-                    return {
-                        ...state,
-                        answerState: {[action.answerId]: "error"},
-                        unansweredQuestions: [...state.unansweredQuestions, activeQuestion.id]
-                    }
+                return {
+                    ...state,
+                    answerState: {[action.answerId]: "error"},
+                    unansweredQuestions: [...state.unansweredQuestions, activeQuestion.id]
                 }
             }
         }
@@ -53,11 +49,16 @@ let learningWordsReducer = (state = initialState, action) => {
             }
 
         case TO_NEXT_QUESTION:
-            return {
-               ...state,
-                activeQuestion: state.activeQuestion + 1,
-                answerState: null
+            if (state.successWords === 10) {
+                return {...state, completed: true}
+            } else {
+                return {
+                    ...state,
+                    activeQuestion: state.activeQuestion + 1,
+                    answerState: null
+                }
             }
+
         case TOGGLE_LOADING: {
             return {
                 ...state, loadingData: action.loadingData
@@ -89,7 +90,7 @@ export const requestQuestions =
                 // dispatch(setNumberQuestionsToComplete(response.data.length))
                 dispatch(toggleLoading(false));
             })
-}
+        }
 
 export const onUserChoseAnswer = (answerId) =>
     (dispatch) => {
@@ -98,6 +99,6 @@ export const onUserChoseAnswer = (answerId) =>
             dispatch(toNextQuestion());
         }, 1000)
 
-}
+    }
 
 export default learningWordsReducer;
