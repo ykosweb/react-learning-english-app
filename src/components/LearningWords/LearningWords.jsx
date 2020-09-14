@@ -7,7 +7,7 @@ const LearningWords = props => {
   return (
     <div className={classes.learningWords}>
       <p className={classes.wordsSuccess}>Выучено слов за сегодня &nbsp;
-        <span className={classes.successNumber}>{props.learningSuccess}</span>
+        <span className={classes.successNumber}>{props.successWords}</span>
       </p>
       <div>
         <h2>Выберите правильный перевод</h2>

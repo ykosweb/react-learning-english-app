@@ -3,28 +3,45 @@ import {connect} from "react-redux";
 import LearningWords from "./LearningWords";
 import {onUserChoseAnswer, requestQuestions} from "../../redux/learningWordsReducer";
 import Preloader from "../common/Preloader/Preloader";
+import CompletedPage from "./CompletedPage/CompletedPage";
 
 class LearningWordsContainer extends React.Component {
+
   componentDidMount() {
     if (this.props.questions.length === 0) {
       this.props.requestQuestions();
     }
   }
+
   choseAnswerHandler = (answerId) => {
     this.props.onUserChoseAnswer(answerId);
   }
+
+  isCompleted = () => {
+    if (this.props.completed) {
+      return (
+          <CompletedPage />
+      )
+    } else {
+      return (
+          <LearningWords
+              questions={this.props.questions}
+              activeQuestion={this.props.activeQuestion}
+              choseAnswer={this.choseAnswerHandler}
+              successWords={this.props.successWords}
+              answerState={this.props.answerState}
+          />
+      )
+    }
+  }
+
+
   render() {
     return (
         <>
           {this.props.loadingData
               ? <Preloader />
-              : <LearningWords
-                  questions={this.props.questions}
-                  activeQuestion={this.props.activeQuestion}
-                  choseAnswer={this.choseAnswerHandler}
-                  learningSuccess={this.props.learningSuccess}
-                  answerState={this.props.answerState}
-              />}
+              : this.isCompleted()}
         </>
 
 
@@ -38,8 +55,9 @@ let mapStateToProps = (state) => {
     loadingData: state.learningWordsPage.loadingData,
     questions: state.learningWordsPage.questions,
     activeQuestion: state.learningWordsPage.activeQuestion,
-    learningSuccess: state.learningWordsPage.learningSuccess,
-    answerState: state.learningWordsPage.answerState
+    successWords: state.learningWordsPage.successWords,
+    answerState: state.learningWordsPage.answerState,
+    completed: state.learningWordsPage.completed
   }
 }
 
