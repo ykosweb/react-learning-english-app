@@ -1,9 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
 import LearningWords from "./LearningWords";
-import {onUserChoseAnswer, requestQuestions} from "../../redux/learningWordsReducer";
+import {choseAnswerThunk, requestQuestions} from "../../redux/learningWordsReducer";
 import Preloader from "../common/Preloader/Preloader";
-import CompletedPage from "./CompletedPage/CompletedPage";
+import FinishedPage from "./FinishedPage/FinishedPage";
 
 class LearningWordsContainer extends React.Component {
 
@@ -14,13 +14,13 @@ class LearningWordsContainer extends React.Component {
   }
 
   choseAnswerHandler = (answerId) => {
-    this.props.onUserChoseAnswer(answerId);
+    this.props.choseAnswerThunk(answerId);
   }
 
   isCompleted = () => {
     if (this.props.completed) {
       return (
-          <CompletedPage />
+          <FinishedPage />
       )
     } else {
       return (
@@ -62,4 +62,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {requestQuestions, onUserChoseAnswer})(LearningWordsContainer);
+export default connect(mapStateToProps, {requestQuestions, choseAnswerThunk})(LearningWordsContainer);

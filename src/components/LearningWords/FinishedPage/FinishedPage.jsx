@@ -1,7 +1,7 @@
 import React from "react";
-import classes from './CompletedPage.module.sass';
+import classes from './FinishedPage.module.sass';
 
-const CompletedPage = props => {
+const FinishedPage = props => {
     return (
         <div className={classes.completed}>
             <h1 className={classes.completedContent}>
@@ -12,4 +12,4 @@ const CompletedPage = props => {
     )
 };
 
-export default CompletedPage;
+export default FinishedPage;
