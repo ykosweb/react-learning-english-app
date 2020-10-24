@@ -4,6 +4,7 @@ import LearningWords from "./LearningWords";
 import {choseAnswerThunk, requestQuestions} from "../../redux/learningWordsReducer";
 import Preloader from "../common/Preloader/Preloader";
 import FinishedPage from "./FinishedPage/FinishedPage";
+import RepeatedPage from "./RepeatedPage/RepeatedPage";
 
 class LearningWordsContainer extends React.Component {
 
@@ -17,12 +18,17 @@ class LearningWordsContainer extends React.Component {
     this.props.choseAnswerThunk(answerId);
   }
 
-  isCompleted = () => {
+  pageContentHandler = () => {
     if (this.props.completed) {
       return (
           <FinishedPage />
       )
-    } else {
+    } else if (this.props.repeatQuestions) {
+      return (
+          <RepeatedPage results={this.props.results}/>
+      )
+    }
+    else {
       return (
           <LearningWords
               questions={this.props.questions}
@@ -41,7 +47,7 @@ class LearningWordsContainer extends React.Component {
         <>
           {this.props.loadingData
               ? <Preloader />
-              : this.isCompleted()}
+              : this.pageContentHandler()}
         </>
 
 
@@ -57,7 +63,9 @@ let mapStateToProps = (state) => {
     activeQuestion: state.learningWordsPage.activeQuestion,
     successWords: state.learningWordsPage.successWords,
     answerState: state.learningWordsPage.answerState,
-    completed: state.learningWordsPage.completed
+    repeatQuestions: state.learningWordsPage.repeatQuestions,
+    completed: state.learningWordsPage.completed,
+    results: state.learningWordsPage.results
   }
 }
 

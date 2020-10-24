@@ -4,8 +4,6 @@ const SET_QUESTIONS = "SET_QUESTIONS";
 const CHOSE_ANSWER = "CHOSE_ANSWER";
 const TOGGLE_LOADING = "TOGGLE_LOADING";
 const TO_NEXT_QUESTION = "TO_NEXT_QUESTION";
-const REPEAT_UNANSWERED_QUESTIONS = "REPEAT_UNANSWERED_QUESTIONS";
-
 const SET_NUMBER_QUESTIONS_TO_COMPLETE = "SET_NUMBER_QUESTIONS_TO_COMPLETE"
 
 let initialState = {
@@ -17,6 +15,7 @@ let initialState = {
     questions: [],
     answerState: null,
     unansweredQuestions: [],
+    repeatQuestions: false,
     results: []
 };
 
@@ -42,18 +41,18 @@ let learningWordsReducer = (state = initialState, action) => {
                     ...state,
                     answerState: {[action.answerId]: "error"},
                     unansweredQuestions: [...state.unansweredQuestions, activeQuestion.id],
-                    results: [...state.results, {[activeQuestion.word]: rightAnswer}]
+                    results: [...state.results, {word: activeQuestion.word, translation: rightAnswer}]
                 }
             }
         }
-        case REPEAT_UNANSWERED_QUESTIONS:
-            return {
-                ...state
-            }
-
         case TO_NEXT_QUESTION:
-            if (state.successWords === state.numberQuestionsToComplete) {
+            //(Количество вопросов в стейте === Количество правильно отвеченных) опрос заканчивается.
+            if (state.numberQuestionsToComplete === state.successWords) {
                 return {...state, completed: true}
+            // Если пользователь ответил хотя бы на один вопрос не верно, переходим на страницу повтора
+            } else if ((state.activeQuestion + 1 === state.questions.length) && (state.activeQuestion + 1) !== state.successWords) {
+                return {...state, repeatQuestions: true}
+            // Переход к следующему вопросу, после ответа пользователя.
             } else {
                 return {
                     ...state,
@@ -79,7 +78,6 @@ export const toggleLoading = (loadingData) => ({type: TOGGLE_LOADING, loadingDat
 
 const setNumberQuestionsToComplete = () => ({type: SET_NUMBER_QUESTIONS_TO_COMPLETE})
 const toNextQuestion = () => ({type: TO_NEXT_QUESTION});
-// const repeatUnansweredQuestions = () => ({type: REPEAT_UNANSWERED_QUESTIONS});
 
 
 //Redux-Thunk
