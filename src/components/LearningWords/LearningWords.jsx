@@ -6,9 +6,9 @@ import QuestionsCounter from "./QuestionsCounter/QuestionsCounter";
 const LearningWords = props => {
   return (
     <div className={classes.learningWords}>
-      <p className={classes.wordsSuccess}>Выучено слов за сегодня &nbsp;
+      <div className={classes.wordsSuccess}>Выучено слов за сегодня &nbsp;
         <span className={classes.successNumber}>{props.successWords}</span>
-      </p>
+      </div>
       <div>
         <h2>Выберите правильный перевод</h2>
         <div className={classes.questionBlock}>
