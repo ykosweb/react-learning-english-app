@@ -49,9 +49,7 @@ class Auth extends React.Component {
         }
         let isValid = true;
 
-        if (validation.required) {
-            
-        }
+        if (validation.required) {}
 
         return isValid;
     }
