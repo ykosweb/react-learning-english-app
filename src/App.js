@@ -7,6 +7,7 @@ import LearningVerbs from "./components/LearningVerbs/LearningVerbs";
 import Aside from "./components/Aside/Aside";
 import LearningWordsContainer from "./components/LearningWords/LearningWordsContainer";
 import Auth from "./components/Auth/Auth";
+import RegistrationForm from "./components/Auth/RegistrationForm/RegistrationForm";
 
 class App extends React.Component {
     render() {
@@ -25,8 +26,8 @@ class App extends React.Component {
                         path="/learning-verbs"
                         render={() => <LearningVerbs/>}/>
                     <Route
-                        path="/auth"
-                        render={() => <Auth/>}/>
+                        path="/registration"
+                        render={() => <RegistrationForm/>}/>
                 </main>
                 <Aside/>
             </div>

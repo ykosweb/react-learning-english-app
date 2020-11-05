@@ -22,7 +22,7 @@ const Header = props => {
             {/*Сделать потом вместо этого блока проверку пропса isAuth. И если авторизовать показывать просто имя пользователя*/}
             <div className={classes.loginBlock}>
                 <NavLink to="auth" className="btn btn-primary btn-sm">LogIn</NavLink>
-                <NavLink to="auth" className="btn btn-primary btn-sm">Registration</NavLink>
+                <NavLink to="registration" className="btn btn-primary btn-sm">Registration</NavLink>
             </div>
         </header>
     )

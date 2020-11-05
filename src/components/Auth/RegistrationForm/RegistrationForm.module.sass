@@ -1,0 +1,30 @@
+@import "src/sass/_templates"
+.registration
+  background: rgb(15,179,174)
+  background: radial-gradient(circle, rgba(15,179,174,1) 0%, rgba(48,238,233,1) 100%)
+  display: grid
+  justify-items: center
+  align-items: center
+  align-content: center
+  p, label, input
+    margin: 0
+    padding: 0
+.registrationForm
+  width: 500px
+  padding: 50px 100px
+  border: 1px solid #fff
+  border-radius: 5px
+  label
+    display: block
+  input
+    width: 100%
+    border: 1px solid #ccc
+    border-radius: 3px
+    margin-bottom: 10px
+    &:focus
+      outline: none
+  button
+    margin-top: 20px
+.error
+  color: red
+  font-weight: bold
