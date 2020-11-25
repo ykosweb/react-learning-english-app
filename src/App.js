@@ -6,10 +6,12 @@ import MainPage from "./components/MainPage/MainPage";
 import LearningVerbs from "./components/LearningVerbs/LearningVerbs";
 import Aside from "./components/Aside/Aside";
 import LearningWordsContainer from "./components/LearningWords/LearningWordsContainer";
-import Auth from "./components/Auth/Auth";
 import RegistrationForm from "./components/Auth/RegistrationForm/RegistrationForm";
+import SignIn from "./components/Auth/SignIn/SignIn";
+import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends React.Component {
+
     render() {
         return (
             <div className={classes.app}>
@@ -28,6 +30,9 @@ class App extends React.Component {
                     <Route
                         path="/registration"
                         render={() => <RegistrationForm/>}/>
+                    <Route
+                        path="/signin"
+                        render={() => <SignIn/>}/>
                 </main>
                 <Aside/>
             </div>

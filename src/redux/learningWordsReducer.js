@@ -2,7 +2,7 @@ import {wordsAPI} from "../api/api";
 
 const SET_QUESTIONS = "SET_QUESTIONS";
 const CHOSE_ANSWER = "CHOSE_ANSWER";
-const TOGGLE_LOADING = "TOGGLE_LOADING";
+// const TOGGLE_LOADING = "TOGGLE_LOADING";
 const TO_NEXT_QUESTION = "TO_NEXT_QUESTION";
 const SET_NUMBER_QUESTIONS_TO_COMPLETE = "SET_NUMBER_QUESTIONS_TO_COMPLETE"
 
@@ -21,7 +21,7 @@ let initialState = {
 
 let learningWordsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_QUESTIONS: {
+        case 'SET_QUESTIONS': {
             return {...state, questions: action.questions}
         }
         case SET_NUMBER_QUESTIONS_TO_COMPLETE: {
@@ -61,7 +61,8 @@ let learningWordsReducer = (state = initialState, action) => {
                 }
             }
 
-        case TOGGLE_LOADING: {
+        case 'TOGGLE_LOADING': {
+            debugger;
             return {
                 ...state, loadingData: action.loadingData
             }
@@ -72,9 +73,9 @@ let learningWordsReducer = (state = initialState, action) => {
 }
 
 //Action Creators
-export const setQuestions = (questions) => ({type: SET_QUESTIONS, questions});
-export const choseAnswer = (answerId) => ({type: CHOSE_ANSWER, answerId});
-export const toggleLoading = (loadingData) => ({type: TOGGLE_LOADING, loadingData});
+const setQuestions = (questions) => ({type: 'SET_QUESTIONS', questions});
+const choseAnswer = (answerId) => ({type: CHOSE_ANSWER, answerId});
+// const toggleLoading = (loadingData) => ({type: TOGGLE_LOADING, loadingData});
 
 const setNumberQuestionsToComplete = () => ({type: SET_NUMBER_QUESTIONS_TO_COMPLETE})
 const toNextQuestion = () => ({type: TO_NEXT_QUESTION});
@@ -83,23 +84,23 @@ const toNextQuestion = () => ({type: TO_NEXT_QUESTION});
 //Redux-Thunk
 
 //Получение вопросов с FireBase
-export const requestQuestions =
-    (quantityQuestions = 10) =>
-        (dispatch) => {
-            wordsAPI.getQuestions(quantityQuestions).then(response => {
-                dispatch(setQuestions(response.data));
-                dispatch(setNumberQuestionsToComplete(response.data.length))
-                dispatch(toggleLoading(false));
-            })
-        }
-
-export const choseAnswerThunk = (answerId) =>
-    (dispatch) => {
-        dispatch(choseAnswer(answerId));
-        setTimeout(() => {
-            dispatch(toNextQuestion());
-        }, 1000)
-
-    }
+// export const requestQuestions =
+//     (quantityQuestions = 10) =>
+//         (dispatch) => {
+//             wordsAPI.getQuestions(quantityQuestions).then(response => {
+//                 dispatch(setQuestions(response.data));
+//                 dispatch(setNumberQuestionsToComplete(response.data.length))
+//                 dispatch(toggleLoading(false));
+//             })
+//         }
+//
+// export const choseAnswerThunk = (answerId) =>
+//     (dispatch) => {
+//         dispatch(choseAnswer(answerId));
+//         setTimeout(() => {
+//             dispatch(toNextQuestion());
+//         }, 1000)
+//
+//     }
 
 export default learningWordsReducer;

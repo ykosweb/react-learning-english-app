@@ -1,16 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
 import LearningWords from "./LearningWords";
-import {choseAnswerThunk, requestQuestions} from "../../redux/learningWordsReducer";
 import Preloader from "../common/Preloader/Preloader";
 import FinishedPage from "./FinishedPage/FinishedPage";
 import RepeatedPage from "./RepeatedPage/RepeatedPage";
+import {getQuestions} from "../../redux/actions/learningWordsActions";
 
 class LearningWordsContainer extends React.Component {
 
   componentDidMount() {
     if (this.props.questions.length === 0) {
-      this.props.requestQuestions();
+      this.props.getQuestions();
     }
   }
 
@@ -43,6 +43,7 @@ class LearningWordsContainer extends React.Component {
 
 
   render() {
+    debugger;
     return (
         <>
           {this.props.loadingData
@@ -56,7 +57,7 @@ class LearningWordsContainer extends React.Component {
 }
 
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     loadingData: state.learningWordsPage.loadingData,
     questions: state.learningWordsPage.questions,
@@ -67,7 +68,14 @@ let mapStateToProps = (state) => {
     completed: state.learningWordsPage.completed,
     results: state.learningWordsPage.results
   }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getQuestions: () => dispatch(getQuestions())
+  }
+
 }
 
 
-export default connect(mapStateToProps, {requestQuestions, choseAnswerThunk})(LearningWordsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LearningWordsContainer);

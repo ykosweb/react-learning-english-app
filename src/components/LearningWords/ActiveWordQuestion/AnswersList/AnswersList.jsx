@@ -10,13 +10,14 @@ const AnswersList = props => {
     return (
         <ul className={classes.answerList}>
             {props.questionItem.answerVariants.map((item, index) => {
+                debugger;
                 return (
                     <AnswerItem
-                        answer={item.version}
-                        key={item.id}
-                        answerId={item.id}
+                        answer={item}
+                        key={index}
+                        answerId={index}
                         choseAnswer={props.choseAnswer}
-                        answerState={item.id === itemNumber ? Object.values(props.answerState) : null}
+                        answerState={index === itemNumber ? Object.values(props.answerState) : null}
                     />
                 )
 

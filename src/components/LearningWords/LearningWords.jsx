@@ -4,6 +4,7 @@ import ActiveWordQuestion from "./ActiveWordQuestion/ActiveWordQuestion";
 import QuestionsCounter from "./QuestionsCounter/QuestionsCounter";
 
 const LearningWords = props => {
+    debugger;
   return (
     <div className={classes.learningWords}>
       <div className={classes.wordsSuccess}>Выучено слов за сегодня &nbsp;

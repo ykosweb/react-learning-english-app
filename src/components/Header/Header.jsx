@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import classes from './Header.module.sass';
 import {NavLink} from "react-router-dom";
+import {connect} from "react-redux";
+import {onLog} from "firebase";
 
 const Header = props => {
     const [loginMenu, setLoginMenu] = useState(false);
@@ -21,11 +23,17 @@ const Header = props => {
             </nav>
             {/*Сделать потом вместо этого блока проверку пропса isAuth. И если авторизовать показывать просто имя пользователя*/}
             <div className={classes.loginBlock}>
-                <NavLink to="auth" className="btn btn-primary btn-sm">LogIn</NavLink>
+                <NavLink to="signin" className="btn btn-primary btn-sm">SignIn</NavLink>
                 <NavLink to="registration" className="btn btn-primary btn-sm">Registration</NavLink>
             </div>
         </header>
     )
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps)(Header);
