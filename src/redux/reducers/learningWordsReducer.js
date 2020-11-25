@@ -1,10 +1,7 @@
 import {wordsAPI} from "../api/api";
 
-const SET_QUESTIONS = "SET_QUESTIONS";
 const CHOSE_ANSWER = "CHOSE_ANSWER";
-// const TOGGLE_LOADING = "TOGGLE_LOADING";
 const TO_NEXT_QUESTION = "TO_NEXT_QUESTION";
-const SET_NUMBER_QUESTIONS_TO_COMPLETE = "SET_NUMBER_QUESTIONS_TO_COMPLETE"
 
 let initialState = {
     completed: false,
@@ -24,10 +21,11 @@ let learningWordsReducer = (state = initialState, action) => {
         case 'SET_QUESTIONS': {
             return {...state, questions: action.questions}
         }
-        case SET_NUMBER_QUESTIONS_TO_COMPLETE: {
+        case 'SET_NUMBER_QUESTIONS_TO_COMPLETE': {
             return {...state, numberQuestionsToComplete: state.questions.length}
         }
-        case CHOSE_ANSWER: {
+        case 'ANSWER_HANDLING': {
+            debugger;
             let activeQuestion = state.questions[state.activeQuestion];
             if (action.answerId === activeQuestion.rightAnswerId) {
                 return {
@@ -36,7 +34,7 @@ let learningWordsReducer = (state = initialState, action) => {
                     successWords: state.successWords + 1
                 }
             } else {
-                let rightAnswer = activeQuestion.answerVariants[activeQuestion.rightAnswerId - 1].version;
+                let rightAnswer = activeQuestion.answerVariants[activeQuestion.rightAnswerId - 1];
                 return {
                     ...state,
                     answerState: {[action.answerId]: "error"},
@@ -62,7 +60,6 @@ let learningWordsReducer = (state = initialState, action) => {
             }
 
         case 'TOGGLE_LOADING': {
-            debugger;
             return {
                 ...state, loadingData: action.loadingData
             }
@@ -77,7 +74,7 @@ const setQuestions = (questions) => ({type: 'SET_QUESTIONS', questions});
 const choseAnswer = (answerId) => ({type: CHOSE_ANSWER, answerId});
 // const toggleLoading = (loadingData) => ({type: TOGGLE_LOADING, loadingData});
 
-const setNumberQuestionsToComplete = () => ({type: SET_NUMBER_QUESTIONS_TO_COMPLETE})
+const setNumberQuestionsToComplete = () => ({type: 'SET_NUMBER_QUESTIONS_TO_COMPLETE'})
 const toNextQuestion = () => ({type: TO_NEXT_QUESTION});
 
 
