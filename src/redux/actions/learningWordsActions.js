@@ -1,8 +1,13 @@
 //Action Creators
 const setQuestions = (questions) => ({type: 'SET_QUESTIONS', questions});
-// const choseAnswer = (answerId) => ({type: CHOSE_ANSWER, answerId});
+
 const toggleLoading = (loadingData) => ({type: 'TOGGLE_LOADING', loadingData});
 const setNumberQuestionsToComplete = () => ({type: 'SET_NUMBER_QUESTIONS_TO_COMPLETE'})
+
+const toNextQuestion = () => ({type: 'TO_NEXT_QUESTION'});
+const answerHandling = (answerId) => ({type: 'ANSWER_HANDLING', answerId});
+
+export const setUnansweredQuestions = () => ({type: 'SET_UNANSWERED_QUESTIONS'})
 
 //Thunk
 export const getQuestions =
@@ -16,7 +21,6 @@ export const getQuestions =
                     snapshot.forEach((item) => {
                         questions.push(item.data());
                     });
-                    debugger;
                     questions.sort((a, b) => {
                         if (a.id > b.id) {
                             return 1
@@ -28,7 +32,6 @@ export const getQuestions =
                     });
                 })
                 .then(() => {
-                    debugger;
                     dispatch(setQuestions(questions));
                     dispatch(setNumberQuestionsToComplete());
                     dispatch(toggleLoading(false));
@@ -37,3 +40,12 @@ export const getQuestions =
                     console.log(error)
                 })
         }
+
+export const choseAnswer = (answerId) =>
+    (dispatch) => {
+        dispatch(answerHandling(answerId));
+        setTimeout(() => {
+            dispatch(toNextQuestion());
+        }, 1000)
+
+    }

@@ -1,10 +1,5 @@
-import {wordsAPI} from "../api/api";
-
-const CHOSE_ANSWER = "CHOSE_ANSWER";
-const TO_NEXT_QUESTION = "TO_NEXT_QUESTION";
-
 let initialState = {
-    completed: false,
+    completed: true,
     numberQuestionsToComplete: null,
     loadingData: true,
     successWords: 0,
@@ -12,9 +7,10 @@ let initialState = {
     questions: [],
     answerState: null,
     unansweredQuestions: [],
-    repeatQuestions: false,
+    needToRepeat: false,
     results: []
 };
+
 
 let learningWordsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -25,7 +21,6 @@ let learningWordsReducer = (state = initialState, action) => {
             return {...state, numberQuestionsToComplete: state.questions.length}
         }
         case 'ANSWER_HANDLING': {
-            debugger;
             let activeQuestion = state.questions[state.activeQuestion];
             if (action.answerId === activeQuestion.rightAnswerId) {
                 return {
@@ -43,13 +38,14 @@ let learningWordsReducer = (state = initialState, action) => {
                 }
             }
         }
-        case TO_NEXT_QUESTION:
+        case 'TO_NEXT_QUESTION':
+            console.log(state);
             //(Количество вопросов в стейте === Количество правильно отвеченных) опрос заканчивается.
-            if (state.numberQuestionsToComplete === state.successWords) {
+            if (state.successWords === 10) {
                 return {...state, completed: true}
             // Если пользователь ответил хотя бы на один вопрос не верно, переходим на страницу повтора
             } else if ((state.activeQuestion + 1 === state.questions.length) && (state.activeQuestion + 1) !== state.successWords) {
-                return {...state, repeatQuestions: true}
+                return {...state, needToRepeat: true}
             // Переход к следующему вопросу, после ответа пользователя.
             } else {
                 return {
@@ -58,7 +54,22 @@ let learningWordsReducer = (state = initialState, action) => {
                     answerState: null
                 }
             }
+        case 'SET_UNANSWERED_QUESTIONS':
+            debugger;
+            let repeatQuestions = [];
+            state.unansweredQuestions.forEach(num => {
+                repeatQuestions.push(state.questions.find(question => question.id === num))
+            })
+            return {
+                ...state,
+                activeQuestion: 0,
+                answerState: null,
+                unansweredQuestions: [],
+                numberQuestionsToComplete: repeatQuestions.length,
+                questions: repeatQuestions,
+                needToRepeat: false,
 
+            }
         case 'TOGGLE_LOADING': {
             return {
                 ...state, loadingData: action.loadingData
@@ -68,14 +79,6 @@ let learningWordsReducer = (state = initialState, action) => {
             return state;
     }
 }
-
-//Action Creators
-const setQuestions = (questions) => ({type: 'SET_QUESTIONS', questions});
-const choseAnswer = (answerId) => ({type: CHOSE_ANSWER, answerId});
-// const toggleLoading = (loadingData) => ({type: TOGGLE_LOADING, loadingData});
-
-const setNumberQuestionsToComplete = () => ({type: 'SET_NUMBER_QUESTIONS_TO_COMPLETE'})
-const toNextQuestion = () => ({type: TO_NEXT_QUESTION});
 
 
 //Redux-Thunk

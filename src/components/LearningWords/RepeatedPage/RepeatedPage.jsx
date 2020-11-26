@@ -4,9 +4,9 @@ import classes from './RepeatedPage.module.sass';
 const RepeatedPage = props => {
     return (
         <div className={classes.completed}>
-            <h3 className={classes.completedContent}>
-                Эти слова нужно пройти заново, ваши ответы были не верны.
-                Нажмите "Продолжить обучение", если готовы.
+            <h3>
+                <p>Эти слова нужно пройти заново, ваши ответы были не верны.</p>
+                <p>Нажмите "Продолжить обучение", если готовы.</p>
             </h3>
             <div className={classes.results}>
                 {props.results.map( (item, index) => {
@@ -19,7 +19,7 @@ const RepeatedPage = props => {
                     )
                 })}
             </div>
-            <button className={classes.repeatBtn}>Продолжить обучение</button>
+            <button className="btn btn-primary" onClick={props.setUnansweredQuestions}>Продолжить обучение</button>
 
         </div>
 

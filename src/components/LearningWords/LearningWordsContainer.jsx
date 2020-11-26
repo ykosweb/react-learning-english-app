@@ -4,7 +4,7 @@ import LearningWords from "./LearningWords";
 import Preloader from "../common/Preloader/Preloader";
 import FinishedPage from "./FinishedPage/FinishedPage";
 import RepeatedPage from "./RepeatedPage/RepeatedPage";
-import {getQuestions} from "../../redux/actions/learningWordsActions";
+import {choseAnswer, getQuestions, setUnansweredQuestions} from "../../redux/actions/learningWordsActions";
 
 class LearningWordsContainer extends React.Component {
 
@@ -15,7 +15,11 @@ class LearningWordsContainer extends React.Component {
   }
 
   choseAnswerHandler = (answerId) => {
-    this.props.choseAnswerThunk(answerId);
+    this.props.choseAnswer(answerId);
+  };
+
+  setUnansweredQuestions = () => {
+
   }
 
   pageContentHandler = () => {
@@ -23,9 +27,9 @@ class LearningWordsContainer extends React.Component {
       return (
           <FinishedPage />
       )
-    } else if (this.props.repeatQuestions) {
+    } else if (this.props.needToRepeat) {
       return (
-          <RepeatedPage results={this.props.results}/>
+          <RepeatedPage results={this.props.results} setUnansweredQuestions={this.props.setUnansweredQuestions}/>
       )
     }
     else {
@@ -43,7 +47,6 @@ class LearningWordsContainer extends React.Component {
 
 
   render() {
-    debugger;
     return (
         <>
           {this.props.loadingData
@@ -64,7 +67,7 @@ const mapStateToProps = (state) => {
     activeQuestion: state.learningWordsPage.activeQuestion,
     successWords: state.learningWordsPage.successWords,
     answerState: state.learningWordsPage.answerState,
-    repeatQuestions: state.learningWordsPage.repeatQuestions,
+    needToRepeat: state.learningWordsPage.needToRepeat,
     completed: state.learningWordsPage.completed,
     results: state.learningWordsPage.results
   }
@@ -72,9 +75,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getQuestions: () => dispatch(getQuestions())
+    getQuestions: () => dispatch(getQuestions()),
+    choseAnswer: (answerId) => dispatch(choseAnswer(answerId)),
+    setUnansweredQuestions: () => dispatch(setUnansweredQuestions())
   }
-
 }
 
 

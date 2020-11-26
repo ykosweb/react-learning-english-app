@@ -3,7 +3,7 @@ import classes from "./SignIn.module.sass"
 import {Formik} from "formik";
 import * as yup from "yup";
 import {connect} from "react-redux";
-import {signIn} from "../../../redux/authReducer";
+import {signIn} from "../../../redux/reducers/authReducer";
 
 const validationsSсhema = yup.object().shape({
     password: yup.string().typeError('Должно быть строкой').required('Обязательно для заполнения'),
