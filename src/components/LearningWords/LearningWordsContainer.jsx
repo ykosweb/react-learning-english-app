@@ -18,10 +18,6 @@ class LearningWordsContainer extends React.Component {
     this.props.choseAnswer(answerId);
   };
 
-  setUnansweredQuestions = () => {
-
-  }
-
   pageContentHandler = () => {
     if (this.props.completed) {
       return (
@@ -29,7 +25,10 @@ class LearningWordsContainer extends React.Component {
       )
     } else if (this.props.needToRepeat) {
       return (
-          <RepeatedPage results={this.props.results} setUnansweredQuestions={this.props.setUnansweredQuestions}/>
+          <RepeatedPage
+              results={this.props.results}
+              setUnansweredQuestions={this.props.setUnansweredQuestions}
+          />
       )
     }
     else {

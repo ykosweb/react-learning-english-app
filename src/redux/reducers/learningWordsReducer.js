@@ -37,25 +37,22 @@ let learningWordsReducer = (state = initialState, action) => {
                 results: [...state.results, {word: currentQuestion.word, translation: rightAnswer}]
             }
         }
+
         case 'TO_NEXT_QUESTION': {
-            console.log(state);
-            //(Количество вопросов в стейте === Количество правильно отвеченных) опрос заканчивается.
-            if (state.successWords === 10) {
-                return {...state, completed: true}
-                // Если пользователь ответил хотя бы на один вопрос не верно, переходим на страницу повтора
-            } else if ((state.activeQuestionNum + 1 === state.questions.length) && (state.activeQuestionNum + 1) !== state.successWords) {
-                return {...state, needToRepeat: true}
-                // Переход к следующему вопросу, после ответа пользователя.
-            } else {
-                return {
-                    ...state,
-                    activeQuestionNum: state.activeQuestionNum + 1,
-                    answerState: null
-                }
+            return {
+                ...state,
+                activeQuestionNum: state.activeQuestionNum + 1,
+                answerState: null
             }
         }
+        case 'NEED_TO_REPEAT': {
+            return {...state, needToRepeat: true}
+        }
+        case 'QUIZ_COMPLETE': {
+            return {...state, completed: true}
+        }
+
         case 'SET_UNANSWERED_QUESTIONS':
-            debugger;
             let repeatQuestions = [];
             state.unansweredQuestions.forEach(num => {
                 repeatQuestions.push(state.questions.find(question => question.id === num))
@@ -79,28 +76,5 @@ let learningWordsReducer = (state = initialState, action) => {
             return state;
     }
 }
-
-
-//Redux-Thunk
-
-//Получение вопросов с FireBase
-// export const requestQuestions =
-//     (quantityQuestions = 10) =>
-//         (dispatch) => {
-//             wordsAPI.getQuestions(quantityQuestions).then(response => {
-//                 dispatch(setQuestions(response.data));
-//                 dispatch(setNumberQuestionsToComplete(response.data.length))
-//                 dispatch(toggleLoading(false));
-//             })
-//         }
-//
-// export const choseAnswerThunk = (answerId) =>
-//     (dispatch) => {
-//         dispatch(choseAnswer(answerId));
-//         setTimeout(() => {
-//             dispatch(toNextQuestion());
-//         }, 1000)
-//
-//     }
 
 export default learningWordsReducer;

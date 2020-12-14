@@ -4,11 +4,13 @@ const setQuestions = (questions) => ({type: 'SET_QUESTIONS', questions});
 const toggleLoading = (loadingData) => ({type: 'TOGGLE_LOADING', loadingData});
 const setNumberQuestionsToComplete = () => ({type: 'SET_NUMBER_QUESTIONS_TO_COMPLETE'})
 
-const toNextQuestion = () => ({type: 'TO_NEXT_QUESTION'});
-const answerHandling = (answerId) => ({type: 'ANSWER_HANDLING', answerId});
+
 
 const answerSuccess = (answerId) => ({type: 'ANSWER_SUCCESS', answerId});
-const answerWrong = (answerId) => ({type: 'ANSWER_WRONG', answerId})
+const answerWrong = (answerId) => ({type: 'ANSWER_WRONG', answerId});
+const quizComleted = () => ({type: 'QUIZ_COMPLETE'});
+const needToRepeat = () => ({type: 'NEED_TO_REPEAT'});
+const toNextQuestion = () => ({type: 'TO_NEXT_QUESTION'});
 
 export const setUnansweredQuestions = () => ({type: 'SET_UNANSWERED_QUESTIONS'});
 
@@ -53,7 +55,15 @@ export const choseAnswer = (answerId) =>
         (answerId === currentQuestion.rightAnswerId)
             ? dispatch(answerSuccess(answerId))
             : dispatch(answerWrong(answerId))
+        let {successWords} = getState().learningWordsPage;
         setTimeout(() => {
-            dispatch(toNextQuestion());
+            if (successWords === 10) {
+                dispatch(quizComleted());
+            } else if ((activeQuestionNum + 1 === questions.length) && (activeQuestionNum + 1) !== successWords) {
+                dispatch(needToRepeat());
+            } else {
+                dispatch(toNextQuestion());
+            }
         }, 1000)
+
 }
