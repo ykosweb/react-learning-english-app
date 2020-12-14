@@ -7,7 +7,10 @@ const setNumberQuestionsToComplete = () => ({type: 'SET_NUMBER_QUESTIONS_TO_COMP
 const toNextQuestion = () => ({type: 'TO_NEXT_QUESTION'});
 const answerHandling = (answerId) => ({type: 'ANSWER_HANDLING', answerId});
 
-export const setUnansweredQuestions = () => ({type: 'SET_UNANSWERED_QUESTIONS'})
+const answerSuccess = (answerId) => ({type: 'ANSWER_SUCCESS', answerId});
+const answerWrong = (answerId) => ({type: 'ANSWER_WRONG', answerId})
+
+export const setUnansweredQuestions = () => ({type: 'SET_UNANSWERED_QUESTIONS'});
 
 //Thunk
 export const getQuestions =
@@ -41,11 +44,16 @@ export const getQuestions =
                 })
         }
 
+
 export const choseAnswer = (answerId) =>
-    (dispatch) => {
-        dispatch(answerHandling(answerId));
+    (dispatch, getState) => {
+        let {questions, activeQuestionNum} = getState().learningWordsPage;
+        let currentQuestion = questions[activeQuestionNum];
+
+        (answerId === currentQuestion.rightAnswerId)
+            ? dispatch(answerSuccess(answerId))
+            : dispatch(answerWrong(answerId))
         setTimeout(() => {
             dispatch(toNextQuestion());
         }, 1000)
-
-    }
+}

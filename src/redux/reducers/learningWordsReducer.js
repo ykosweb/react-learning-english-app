@@ -1,9 +1,9 @@
 let initialState = {
-    completed: true,
+    completed: false,
     numberQuestionsToComplete: null,
     loadingData: true,
     successWords: 0,
-    activeQuestion: 0,
+    activeQuestionNum: 0,
     questions: [],
     answerState: null,
     unansweredQuestions: [],
@@ -20,40 +20,40 @@ let learningWordsReducer = (state = initialState, action) => {
         case 'SET_NUMBER_QUESTIONS_TO_COMPLETE': {
             return {...state, numberQuestionsToComplete: state.questions.length}
         }
-        case 'ANSWER_HANDLING': {
-            let activeQuestion = state.questions[state.activeQuestion];
-            if (action.answerId === activeQuestion.rightAnswerId) {
-                return {
-                    ...state,
-                    answerState: {[action.answerId]: "success"},
-                    successWords: state.successWords + 1
-                }
-            } else {
-                let rightAnswer = activeQuestion.answerVariants[activeQuestion.rightAnswerId - 1];
-                return {
-                    ...state,
-                    answerState: {[action.answerId]: "error"},
-                    unansweredQuestions: [...state.unansweredQuestions, activeQuestion.id],
-                    results: [...state.results, {word: activeQuestion.word, translation: rightAnswer}]
-                }
+        case 'ANSWER_SUCCESS': {
+            return {
+                ...state,
+                answerState: {[action.answerId]: "success"},
+                successWords: state.successWords + 1
             }
         }
-        case 'TO_NEXT_QUESTION':
+        case 'ANSWER_WRONG': {
+            let currentQuestion = state.questions[state.activeQuestionNum];
+            let rightAnswer = currentQuestion.answerVariants[currentQuestion.rightAnswerId - 1];
+            return {
+                ...state,
+                answerState: {[action.answerId]: "error"},
+                unansweredQuestions: [...state.unansweredQuestions, currentQuestion.id],
+                results: [...state.results, {word: currentQuestion.word, translation: rightAnswer}]
+            }
+        }
+        case 'TO_NEXT_QUESTION': {
             console.log(state);
             //(Количество вопросов в стейте === Количество правильно отвеченных) опрос заканчивается.
             if (state.successWords === 10) {
                 return {...state, completed: true}
-            // Если пользователь ответил хотя бы на один вопрос не верно, переходим на страницу повтора
-            } else if ((state.activeQuestion + 1 === state.questions.length) && (state.activeQuestion + 1) !== state.successWords) {
+                // Если пользователь ответил хотя бы на один вопрос не верно, переходим на страницу повтора
+            } else if ((state.activeQuestionNum + 1 === state.questions.length) && (state.activeQuestionNum + 1) !== state.successWords) {
                 return {...state, needToRepeat: true}
-            // Переход к следующему вопросу, после ответа пользователя.
+                // Переход к следующему вопросу, после ответа пользователя.
             } else {
                 return {
                     ...state,
-                    activeQuestion: state.activeQuestion + 1,
+                    activeQuestionNum: state.activeQuestionNum + 1,
                     answerState: null
                 }
             }
+        }
         case 'SET_UNANSWERED_QUESTIONS':
             debugger;
             let repeatQuestions = [];
@@ -62,7 +62,7 @@ let learningWordsReducer = (state = initialState, action) => {
             })
             return {
                 ...state,
-                activeQuestion: 0,
+                activeQuestionNum: 0,
                 answerState: null,
                 unansweredQuestions: [],
                 numberQuestionsToComplete: repeatQuestions.length,

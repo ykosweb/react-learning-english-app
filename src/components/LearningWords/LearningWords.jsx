@@ -14,13 +14,13 @@ const LearningWords = props => {
         <div className={classes.questionBlock}>
           <ActiveWordQuestion
               questions={props.questions}
-              activeQuestion={props.activeQuestion}
+              activeQuestionNum={props.activeQuestionNum}
               choseAnswer={props.choseAnswer}
               answerState={props.answerState}
           />
           <QuestionsCounter
               questionCounter={props.questions.length}
-              activeQuestion={props.activeQuestion}
+              activeQuestionNum={props.activeQuestionNum}
           />
         </div>
       </div>

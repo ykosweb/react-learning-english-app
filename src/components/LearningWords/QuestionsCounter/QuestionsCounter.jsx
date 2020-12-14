@@ -4,7 +4,7 @@ import classes from './QuestionsCounter.module.sass';
 const QuestionsCounter = props => {
   return (
     <small className={classes.questionCounter}>
-        {props.activeQuestion + 1} из {props.questionCounter}
+        {props.activeQuestionNum + 1} из {props.questionCounter}
     </small>
   )
 };

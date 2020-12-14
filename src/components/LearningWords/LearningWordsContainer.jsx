@@ -36,7 +36,7 @@ class LearningWordsContainer extends React.Component {
       return (
           <LearningWords
               questions={this.props.questions}
-              activeQuestion={this.props.activeQuestion}
+              activeQuestionNum={this.props.activeQuestionNum}
               choseAnswer={this.choseAnswerHandler}
               successWords={this.props.successWords}
               answerState={this.props.answerState}
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
   return {
     loadingData: state.learningWordsPage.loadingData,
     questions: state.learningWordsPage.questions,
-    activeQuestion: state.learningWordsPage.activeQuestion,
+    activeQuestionNum: state.learningWordsPage.activeQuestionNum,
     successWords: state.learningWordsPage.successWords,
     answerState: state.learningWordsPage.answerState,
     needToRepeat: state.learningWordsPage.needToRepeat,
