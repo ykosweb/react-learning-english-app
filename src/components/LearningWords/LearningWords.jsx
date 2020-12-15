@@ -2,7 +2,7 @@ import React from "react";
 import classes from './LearningWords.module.sass';
 import ActiveWordQuestion from "./ActiveWordQuestion/ActiveWordQuestion";
 import QuestionsCounter from "./QuestionsCounter/QuestionsCounter";
-import ProgressBar from "../UI/ProgressBar/ProgressBar";
+import ProgressBarContainer from "../UI/ProgressBarContainer/ProgressBarContainer";
 
 const LearningWords = props => {
     return (
@@ -25,7 +25,7 @@ const LearningWords = props => {
                     />
 
                 </div>
-                {/*<ProgressBar/>*/}
+                <ProgressBarContainer successWords={props.successWords}/>
             </div>
         </div>
     )
