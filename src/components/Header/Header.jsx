@@ -1,15 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import classes from './Header.module.sass';
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
-import {onLog} from "firebase";
+import SignedInLinks from "./SignedInLinks";
+import SignedOutLinks from "./SignedOutLinks";
+import {signOut} from "../../redux/actions/authActions";
 
-const Header = props => {
-    const [loginMenu, setLoginMenu] = useState(false);
-
-    function toggleLoginMenu() {
-        setLoginMenu(!loginMenu);
-    }
+const Header = (props) => {
     return (
         <header className={classes.header}>
             <div>
@@ -21,19 +18,25 @@ const Header = props => {
                 <NavLink to="learning-words" className={classes.menuLink}>Учим Cлова</NavLink>
                 <NavLink to="learning-verbs" className={classes.menuLink}>Неправильные глаголы</NavLink>
             </nav>
-            {/*Сделать потом вместо этого блока проверку пропса isAuth. И если авторизовать показывать просто имя пользователя*/}
-            <div className={classes.loginBlock}>
-                <NavLink to="signin" className="btn btn-primary btn-sm">SignIn</NavLink>
-                <NavLink to="registration" className="btn btn-primary btn-sm">Registration</NavLink>
-            </div>
+
+            {props.auth.uid
+                ? <SignedOutLinks signOut={props.signOut}/>
+                : <SignedInLinks />
+                }
         </header>
     )
 };
 
 const mapStateToProps = (state) => {
+    console.log(state)
     return {
-
+        auth: state.firebase.auth
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signOut: () => dispatch(signOut())
     }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

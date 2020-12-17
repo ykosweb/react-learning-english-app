@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import LearningWords from "./LearningWords";
-import Preloader from "../common/Preloader/Preloader";
+import Preloader from "../UI/Preloader/Preloader";
 import FinishedPage from "./FinishedPage/FinishedPage";
 import RepeatedPage from "./RepeatedPage/RepeatedPage";
 import {choseAnswer, getQuestions, setUnansweredQuestions} from "../../redux/actions/learningWordsActions";

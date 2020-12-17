@@ -1,9 +1,8 @@
 import React from "react";
-import classes from './RegistrationForm.module.sass';
+import classes from './Registration.module.sass';
 import {Formik} from "formik";
 import * as yup from "yup";
 import {connect} from "react-redux";
-import {signIn} from "../../../redux/reducers/authReducer";
 
 const validationsSсhema = yup.object().shape({
     password: yup.string().typeError('Должно быть строкой').required('Обязательно для заполнения'),
@@ -11,7 +10,7 @@ const validationsSсhema = yup.object().shape({
     email: yup.string().email('Введите валидный email').required('Обязательно для заполнения')
 })
 
-class RegistrationForm extends React.Component {
+class Registration extends React.Component {
 
     handleSubmit = (value) => {
         console.log(value);
@@ -90,7 +89,12 @@ class RegistrationForm extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+
+    }
+}
 
 
-
-export default connect(null, null)(RegistrationForm);
+export default connect(mapStateToProps, null)(Registration);

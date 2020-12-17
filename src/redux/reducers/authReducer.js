@@ -1,5 +1,6 @@
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_ERROR = 'LOGIN_ERROR';
+const SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS';
 
 let initialState = {
     authError: null,
@@ -18,32 +19,16 @@ let authReducer = (state = initialState, action) => {
 
             }
         case LOGIN_ERROR:
-            console.log('login error')
             return {
                 ...state,
-                authError: 'Login failed'
+                authError: 'Логин или пароль введены не правильно, попробуйте ещё раз'
             }
+        case SIGN_OUT_SUCCESS:
+            console.log('SIGN_OUT_SUCCESS')
+            return state;
         default:
             return state;
     }
 };
-
-const loginSuccess = () => ({type: LOGIN_SUCCESS});
-const loginError = (error) => ({type: LOGIN_ERROR, error})
-
-export const signIn = (credentials) => {
-    return (dispatch, getState, {getFirebase}) => {
-        const firebase = getFirebase();
-
-        firebase.auth().signInWithEmailAndPassword(
-            credentials.email,
-            credentials.password
-        ).then(() => {
-            dispatch(loginSuccess())
-        }).catch((error) => {
-            dispatch(loginError(error))
-        })
-    }
-}
 
 export default authReducer;

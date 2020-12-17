@@ -6,7 +6,7 @@ import MainPage from "./components/MainPage/MainPage";
 import LearningVerbs from "./components/LearningVerbs/LearningVerbs";
 import Aside from "./components/Aside/Aside";
 import LearningWordsContainer from "./components/LearningWords/LearningWordsContainer";
-import RegistrationForm from "./components/Auth/RegistrationForm/RegistrationForm";
+import RegistrationForm from "./components/Auth/Registration/Registration";
 import SignIn from "./components/Auth/SignIn/SignIn";
 import 'bootstrap/dist/css/bootstrap.css';
 

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Preloader.module.sass";
-import preloader from "./../../../assets/images/ball-triangle.svg"
+import preloader from "../../../assets/images/ball-triangle.svg"
 
 const Preloader = props => {
     return (
