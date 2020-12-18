@@ -65,7 +65,7 @@ const SignIn = (props) => {
                             type="submit"
                             className="btn btn-primary"
                             onClick={handleSubmit}
-                        >Отправить
+                        >Войти
                         </button>
                     </div>
                 )}

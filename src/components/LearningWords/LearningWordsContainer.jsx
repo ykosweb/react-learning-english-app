@@ -5,6 +5,8 @@ import Preloader from "../UI/Preloader/Preloader";
 import FinishedPage from "./FinishedPage/FinishedPage";
 import RepeatedPage from "./RepeatedPage/RepeatedPage";
 import {choseAnswer, getQuestions, setUnansweredQuestions} from "../../redux/actions/learningWordsActions";
+import {compose} from "redux";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
 class LearningWordsContainer extends React.Component {
 
@@ -81,4 +83,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(LearningWordsContainer);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect)
+(LearningWordsContainer);
