@@ -14,6 +14,9 @@ class LearningWordsContainer extends React.Component {
     if (this.props.questions.length === 0) {
       this.props.getQuestions();
     }
+
+    
+
   }
 
   choseAnswerHandler = (answerId) => {

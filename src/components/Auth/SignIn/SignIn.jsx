@@ -4,17 +4,20 @@ import {Formik} from "formik";
 import * as yup from "yup";
 import {connect} from "react-redux";
 import {signIn} from "../../../redux/actions/authActions";
+import {Redirect} from "react-router-dom";
 
 const validationsSсhema = yup.object().shape({
     password: yup.string().typeError('Должно быть строкой').required('Обязательно для заполнения'),
     email: yup.string().email('Введите валидный email').required('Обязательно для заполнения')
 })
 
+// компонент входа
 const SignIn = (props) => {
 
     const handleSubmit = (values) => {
         props.signIn(values)
     }
+    if (props.auth.uid) return <Redirect to='/' />
     return (
         <div className={classes.auth}>
             <h1>Вход</h1>
@@ -58,7 +61,7 @@ const SignIn = (props) => {
                         </p>
                         {touched.password && errors.password && <p className={classes.error}>{errors.password}</p>}
 
-                        {props.authError && <p>props.authError</p>}
+                        {props.authError && <p className={classes.error}>Email или пароль введены не верно</p>}
 
                         <button
                             disabled={!isValid && !dirty}
@@ -82,7 +85,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 const mapStateToProps = (state) => {
     return {
-        authError: state.auth.authError
+        authError: state.auth.authError,
+        auth: state.firebase.auth
     }
 }
 

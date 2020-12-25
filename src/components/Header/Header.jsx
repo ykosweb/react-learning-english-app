@@ -20,7 +20,10 @@ const Header = (props) => {
             </nav>
 
             {props.auth.uid
-                ? <SignedOutLinks signOut={props.signOut}/>
+                ? <SignedOutLinks
+                    signOut={props.signOut}
+                    profile={props.profile}
+                />
                 : <SignedInLinks />
                 }
         </header>
@@ -28,9 +31,9 @@ const Header = (props) => {
 };
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        profile: state.firebase.profile
     }
 }
 const mapDispatchToProps = (dispatch) => {

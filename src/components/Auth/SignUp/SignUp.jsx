@@ -1,8 +1,10 @@
 import React from "react";
-import classes from './Registration.module.sass';
+import classes from './SignUp.module.sass';
 import {Formik} from "formik";
 import * as yup from "yup";
 import {connect} from "react-redux";
+import {signUp} from "../../../redux/actions/authActions";
+import {Redirect} from "react-router-dom";
 
 const validationsSсhema = yup.object().shape({
     password: yup.string().typeError('Должно быть строкой').required('Обязательно для заполнения'),
@@ -10,18 +12,21 @@ const validationsSсhema = yup.object().shape({
     email: yup.string().email('Введите валидный email').required('Обязательно для заполнения')
 })
 
-class Registration extends React.Component {
+class SignUp extends React.Component {
 
-    handleSubmit = (value) => {
-        console.log(value);
+    handleSubmit = ({name, password, email}) => {
+        this.props.signUp({name, password,email})
     }
 
     render() {
+        debugger;
+        if (this.props.auth && this.props.auth.uid) return <Redirect to='/' />
         return (
             <div className={classes.auth}>
                 <h1>Регистрация</h1>
                 <Formik
                     initialValues={{
+                        name: '',
                         password: '',
                         confirmPassword: '',
                         email: ''
@@ -34,6 +39,18 @@ class Registration extends React.Component {
                 >
                     {({values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty}) => (
                         <div className={classes.authForm}>
+                            <p>
+                                <label htmlFor="name">Имя:</label>
+                                <input
+                                    type="text"
+                                    className={classes.input}
+                                    name="name"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.name}
+                                />
+                            </p>
+                            {touched.email && errors.email && <p className={classes.error}>{errors.email}</p>}
                             <p>
                                 <label htmlFor="email">Email:</label>
                                 <input
@@ -90,11 +107,16 @@ class Registration extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
+        auth: state.firebase.auth
+    }
+}
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signUp: (newUser) => dispatch(signUp(newUser))
     }
 }
 
 
-export default connect(mapStateToProps, null)(Registration);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -1,7 +1,3 @@
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const LOGIN_ERROR = 'LOGIN_ERROR';
-const SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS';
-
 let initialState = {
     authError: null,
     email: null,
@@ -11,21 +7,33 @@ let initialState = {
 
 let authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOGIN_SUCCESS:
+        case 'LOGIN_SUCCESS':
             console.log('login success')
             return {
                 ...state,
                 authError: null,
 
             }
-        case LOGIN_ERROR:
+        case 'LOGIN_ERROR':
             return {
                 ...state,
                 authError: 'Логин или пароль введены не правильно, попробуйте ещё раз'
             }
-        case SIGN_OUT_SUCCESS:
+        case 'SIGN_OUT_SUCCESS':
             console.log('SIGN_OUT_SUCCESS')
             return state;
+        case 'SIGN_UP_SUCCESS':
+            console.log('SIGN_UP_SUCCESS')
+            return {
+                ...state,
+                authError: null
+            }
+        case 'SIGN_UP_ERROR':
+            console.log('SIGN_UP_ERROR')
+            return {
+                ...state,
+                authError: action.error.message
+            }
         default:
             return state;
     }

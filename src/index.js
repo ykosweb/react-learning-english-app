@@ -17,24 +17,34 @@ import { isLoaded  } from 'react-redux-firebase';
 import Preloader from "./components/UI/Preloader/Preloader";
 
 
+const composeEnhancers =
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+        }) : compose;
+
+
 const store = createStore(
     rootReducer,
-    compose(
+    composeEnhancers(
         applyMiddleware(thunk.withExtraArgument({getFirestore, getFirebase})),
         reduxFirestore(fbConfig)
     )
 );
-
-
+const rrfConfig = {
+    userProfile: 'users',
+    useFirestoreForProfile: true // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+}
 const rrfProps = {
     firebase,
-    config: fbConfig,
+    config: rrfConfig,
     dispatch: store.dispatch,
     createFirestoreInstance
 };
 
 function AuthIsLoaded({ children }) {
-    const auth = useSelector(state => state.firebase.auth)
+    const auth = useSelector(state => state.firebase.auth);
     if (!isLoaded(auth)) {
         return <Preloader />;
     }
