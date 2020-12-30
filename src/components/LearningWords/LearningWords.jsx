@@ -5,6 +5,7 @@ import QuestionsCounter from "./QuestionsCounter/QuestionsCounter";
 import ProgressBarContainer from "../UI/ProgressBarContainer/ProgressBarContainer";
 
 const LearningWords = props => {
+
     return (
         <div className={classes.learningWords}>
             <div className={classes.wordsSuccess}>Выучено слов за сегодня &nbsp;

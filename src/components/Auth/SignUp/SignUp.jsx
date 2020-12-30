@@ -19,7 +19,6 @@ class SignUp extends React.Component {
     }
 
     render() {
-        debugger;
         if (this.props.auth && this.props.auth.uid) return <Redirect to='/' />
         return (
             <div className={classes.auth}>

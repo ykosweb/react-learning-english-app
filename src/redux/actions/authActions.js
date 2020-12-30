@@ -19,7 +19,6 @@ export const signIn = (credentials) => {
 }
 
 export const signOut = () => {
-    debugger;
     return (dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase();
 
@@ -41,7 +40,8 @@ export const signUp = (newUser) => {
             return firestore.collection('users').doc(response.user.uid).set({
                 name: newUser.name,
                 learningWordsScore: 0,
-                learningVerbsScore: 0
+                learningVerbsScore: 0,
+                totalScore: 0
             })
         }).then(() => {
             dispatch(signUpSuccess())
@@ -50,3 +50,4 @@ export const signUp = (newUser) => {
         })
     }
 }
+

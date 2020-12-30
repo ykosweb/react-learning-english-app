@@ -1,3 +1,11 @@
+import {
+    ANSWER_SUCCESS,
+    ANSWER_WRONG, NEED_TO_REPEAT, QUIZ_COMPLETE, RESET_DATA,
+    SET_NUMBER_QUESTIONS_TO_COMPLETE,
+    SET_QUESTIONS, SET_UNANSWERED_QUESTIONS,
+    TO_NEXT_QUESTION, TOGGLE_LOADING
+} from '../actionsType'
+
 let initialState = {
     completed: false,
     numberQuestionsToComplete: null,
@@ -14,20 +22,20 @@ let initialState = {
 
 let learningWordsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_QUESTIONS': {
+        case SET_QUESTIONS: {
             return {...state, questions: action.questions}
         }
-        case 'SET_NUMBER_QUESTIONS_TO_COMPLETE': {
+        case SET_NUMBER_QUESTIONS_TO_COMPLETE: {
             return {...state, numberQuestionsToComplete: state.questions.length}
         }
-        case 'ANSWER_SUCCESS': {
+        case ANSWER_SUCCESS: {
             return {
                 ...state,
                 answerState: {[action.answerId]: "success"},
                 successWords: state.successWords + 1
             }
         }
-        case 'ANSWER_WRONG': {
+        case ANSWER_WRONG: {
             let currentQuestion = state.questions[state.activeQuestionNum];
             let rightAnswer = currentQuestion.answerVariants[currentQuestion.rightAnswerId - 1];
             return {
@@ -38,21 +46,21 @@ let learningWordsReducer = (state = initialState, action) => {
             }
         }
 
-        case 'TO_NEXT_QUESTION': {
+        case TO_NEXT_QUESTION: {
             return {
                 ...state,
                 activeQuestionNum: state.activeQuestionNum + 1,
                 answerState: null
             }
         }
-        case 'NEED_TO_REPEAT': {
+        case NEED_TO_REPEAT: {
             return {...state, needToRepeat: true}
         }
-        case 'QUIZ_COMPLETE': {
+        case QUIZ_COMPLETE: {
             return {...state, completed: true}
         }
 
-        case 'SET_UNANSWERED_QUESTIONS':
+        case SET_UNANSWERED_QUESTIONS:
             let repeatQuestions = [];
             state.unansweredQuestions.forEach(num => {
                 repeatQuestions.push(state.questions.find(question => question.id === num))
@@ -67,9 +75,22 @@ let learningWordsReducer = (state = initialState, action) => {
                 needToRepeat: false,
 
             }
-        case 'TOGGLE_LOADING': {
+        case TOGGLE_LOADING: {
             return {
                 ...state, loadingData: action.loadingData
+            }
+        }
+        case RESET_DATA: {
+            return {
+                ...state,
+                completed: false,
+                numberQuestionsToComplete: null,
+                successWords: 0,
+                activeQuestionNum: 0,
+                answerState: null,
+                unansweredQuestions: [],
+                needToRepeat: false,
+                results: []
             }
         }
         default:

@@ -7,7 +7,7 @@ const FinishedPage = props => {
             <h1>
                 Отлично, вы выучили 10 слов!
             </h1>
-            <button className="btn btn-primary">Выучить еще 10 слов</button>
+            <button className="btn btn-primary" onClick={props.getQuestions}>Выучить еще 10 слов</button>
         </div>
 
     )

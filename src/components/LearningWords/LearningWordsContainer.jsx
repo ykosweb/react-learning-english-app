@@ -4,19 +4,23 @@ import LearningWords from "./LearningWords";
 import Preloader from "../UI/Preloader/Preloader";
 import FinishedPage from "./FinishedPage/FinishedPage";
 import RepeatedPage from "./RepeatedPage/RepeatedPage";
-import {choseAnswer, getQuestions, setUnansweredQuestions} from "../../redux/actions/learningWordsActions";
+import {
+  choseAnswer,
+  getQuestions,
+  setUnansweredQuestions, setUserScore
+} from "../../redux/actions/learningWordsActions";
 import {compose} from "redux";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
 class LearningWordsContainer extends React.Component {
 
   componentDidMount() {
+    //Тут херня. В санке getQuestions установлено получение вопросов по диапазону, которые получаются из setUserScore
+    //Поэтому сначала нужно его вызвать
     if (this.props.questions.length === 0) {
       this.props.getQuestions();
     }
-
-    
-
+    // this.props.setUserScore();
   }
 
   choseAnswerHandler = (answerId) => {
@@ -26,7 +30,7 @@ class LearningWordsContainer extends React.Component {
   pageContentHandler = () => {
     if (this.props.completed) {
       return (
-          <FinishedPage />
+          <FinishedPage getQuestions={this.props.getQuestions}/>
       )
     } else if (this.props.needToRepeat) {
       return (
@@ -81,7 +85,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getQuestions: () => dispatch(getQuestions()),
     choseAnswer: (answerId) => dispatch(choseAnswer(answerId)),
-    setUnansweredQuestions: () => dispatch(setUnansweredQuestions())
+    setUnansweredQuestions: () => dispatch(setUnansweredQuestions()),
+    setUserScore: () => dispatch(setUserScore())
   }
 }
 
