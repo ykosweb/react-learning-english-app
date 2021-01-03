@@ -49,7 +49,6 @@ export const getQuestions =
                     });
                 })
                 .then(() => {
-                    debugger;
                     dispatch(setQuestions(questions));
                     dispatch(setNumberQuestionsToComplete());
                     dispatch(toggleLoading(false));

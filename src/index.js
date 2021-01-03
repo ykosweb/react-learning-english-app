@@ -34,7 +34,7 @@ const store = createStore(
 );
 const rrfConfig = {
     userProfile: 'users',
-    useFirestoreForProfile: true // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+    useFirestoreForProfile: true // useFirestoreForProfile: true // Firestore for About instead of Realtime DB
 }
 const rrfProps = {
     firebase,
@@ -44,8 +44,8 @@ const rrfProps = {
 };
 
 function AuthIsLoaded({ children }) {
-    const auth = useSelector(state => state.firebase.auth);
-    if (!isLoaded(auth)) {
+    const profile = useSelector(state => state.firebase.profile);
+    if (!isLoaded(profile)) {
         return <Preloader />;
     }
     return children

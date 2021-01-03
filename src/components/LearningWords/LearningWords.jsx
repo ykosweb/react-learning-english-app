@@ -8,7 +8,7 @@ const LearningWords = props => {
 
     return (
         <div className={classes.learningWords}>
-            <div className={classes.wordsSuccess}>Выучено слов за сегодня &nbsp;
+            <div className={classes.wordsSuccess}>Выучено слов: &nbsp;
                 <span className={classes.successNumber}>{props.successWords}</span>
             </div>
             <div>

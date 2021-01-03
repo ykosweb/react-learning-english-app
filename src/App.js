@@ -9,6 +9,10 @@ import LearningWordsContainer from "./components/LearningWords/LearningWordsCont
 import RegistrationForm from "./components/Auth/SignUp/SignUp";
 import SignIn from "./components/Auth/SignIn/SignIn";
 import 'bootstrap/dist/css/bootstrap.css';
+import Profile from "./components/Profile/Profile";
+import Friends from "./components/Friends/Friends";
+import Results from "./components/Results/Results";
+import About from "./components/About/About";
 
 class App extends React.Component {
 
@@ -27,6 +31,18 @@ class App extends React.Component {
                     <Route
                         path="/learning-verbs"
                         render={() => <LearningVerbs/>}/>
+                    <Route
+                        path="/profile/:uid"
+                        render={() => <Profile/>}/>
+                    <Route
+                        path="/friends/"
+                        render={() => <Friends/>}/>
+                    <Route
+                        path="/results"
+                        render={() => <Results/>}/>
+                    <Route
+                        path="/about"
+                        render={() => <About/>}/>
                     <Route
                         path="/registration"
                         render={() => <RegistrationForm/>}/>

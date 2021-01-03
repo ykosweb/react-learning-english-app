@@ -15,12 +15,9 @@ import {withAuthRedirect} from "../hoc/withAuthRedirect";
 class LearningWordsContainer extends React.Component {
 
   componentDidMount() {
-    //Тут херня. В санке getQuestions установлено получение вопросов по диапазону, которые получаются из setUserScore
-    //Поэтому сначала нужно его вызвать
     if (this.props.questions.length === 0) {
       this.props.getQuestions();
     }
-    // this.props.setUserScore();
   }
 
   choseAnswerHandler = (answerId) => {
@@ -68,7 +65,8 @@ class LearningWordsContainer extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps)
   return {
     loadingData: state.learningWordsPage.loadingData,
     questions: state.learningWordsPage.questions,

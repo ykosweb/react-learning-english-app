@@ -34,6 +34,10 @@ let authReducer = (state = initialState, action) => {
                 ...state,
                 authError: action.error.message
             }
+        case 'SIGN_UP_ERR':
+            if (state.authError > 0)
+                return true;
+            return false;
         default:
             return state;
     }
