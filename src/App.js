@@ -3,7 +3,7 @@ import classes from "./App.module.sass";
 import Header from "./components/Header/Header";
 import {Route} from "react-router-dom";
 import MainPage from "./components/MainPage/MainPage";
-import LearningVerbs from "./components/LearningVerbs/LearningVerbs";
+import LearningVerbsContainer from "./components/LearningVerbs/LearningVerbsContainer";
 import Aside from "./components/Aside/Aside";
 import LearningWordsContainer from "./components/LearningWords/LearningWordsContainer";
 import RegistrationForm from "./components/Auth/SignUp/SignUp";
@@ -30,12 +30,12 @@ class App extends React.Component {
                         render={() => <LearningWordsContainer/>}/>
                     <Route
                         path="/learning-verbs"
-                        render={() => <LearningVerbs/>}/>
+                        render={() => <LearningVerbsContainer/>}/>
                     <Route
-                        path="/profile/:uid"
+                        path="/profile"
                         render={() => <Profile/>}/>
                     <Route
-                        path="/friends/"
+                        path="/friends/:uid"
                         render={() => <Friends/>}/>
                     <Route
                         path="/results"

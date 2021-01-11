@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./SignIn.module.sass"
-import {Formik} from "formik";
+import {Field, Formik} from "formik";
 import * as yup from "yup";
 import {connect} from "react-redux";
 import {signIn} from "../../../redux/actions/authActions";
@@ -38,31 +38,28 @@ const SignIn = (props) => {
                     <div className={classes.authForm}>
                         <p>
                             <label htmlFor="email">Email:</label>
-                            <input
-                                type="email"
-                                name="email"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.email}
+                            <Field type="email"
+                                   name="email"
+                                   onChange={handleChange}
+                                   onBlur={handleBlur}
+                                   value={values.email}
                             />
                         </p>
                         {touched.email && errors.email && <p className={classes.error}>{errors.email}</p>}
 
                         <p>
                             <label htmlFor="password">Пароль:</label>
-                            <input
-                                type="password"
-                                className={classes.input}
-                                name="password"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.password}
+                            <Field type="password"
+                                   className={classes.input}
+                                   name="password"
+                                   onChange={handleChange}
+                                   onBlur={handleBlur}
+                                   value={values.password}
                             />
                         </p>
                         {touched.password && errors.password && <p className={classes.error}>{errors.password}</p>}
 
                         {props.authError && <p className={classes.error}>Email или пароль введены не верно</p>}
-
                         <button
                             disabled={!isValid && !dirty}
                             type="submit"

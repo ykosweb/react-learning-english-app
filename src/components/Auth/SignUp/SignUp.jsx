@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './SignUp.module.sass';
-import {Formik} from "formik";
+import {Field, Formik} from "formik";
 import * as yup from "yup";
 import {connect} from "react-redux";
 import {signUp} from "../../../redux/actions/authActions";
@@ -40,52 +40,44 @@ class SignUp extends React.Component {
                         <div className={classes.authForm}>
                             <p>
                                 <label htmlFor="name">Имя:</label>
-                                <input
-                                    type="text"
-                                    className={classes.input}
-                                    name="name"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.name}
-                                />
+                                <Field type="text"
+                                       className={classes.input}
+                                       name="name"
+                                       onChange={handleChange}
+                                       onBlur={handleBlur}
+                                       value={values.name}/>
                             </p>
                             {touched.email && errors.email && <p className={classes.error}>{errors.email}</p>}
                             <p>
                                 <label htmlFor="email">Email:</label>
-                                <input
-                                    type="email"
-                                    className={classes.input}
-                                    name="email"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.email}
-                                />
+                                <Field type="email"
+                                       className={classes.input}
+                                       name="email"
+                                       onChange={handleChange}
+                                       onBlur={handleBlur}
+                                       value={values.email}/>
                             </p>
                             {touched.email && errors.email && <p className={classes.error}>{errors.email}</p>}
 
                             <p>
                                 <label htmlFor="password">Пароль:</label>
-                                <input
-                                    type="password"
-                                    className={classes.input}
-                                    name="password"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.password}
-                                />
+                                <Field type="password"
+                                       className={classes.input}
+                                       name="password"
+                                       onChange={handleChange}
+                                       onBlur={handleBlur}
+                                       value={values.password}/>
                             </p>
                             {touched.password && errors.password && <p className={classes.error}>{errors.password}</p>}
 
                             <p>
                                 <label htmlFor="confirmPassword">Подтверждение пароля:</label>
-                                <input
-                                    type="password"
-                                    className={classes.input}
-                                    name="confirmPassword"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.confirmPassword}
-                                />
+                                <Field type="password"
+                                       className={classes.input}
+                                       name="confirmPassword"
+                                       onChange={handleChange}
+                                       onBlur={handleBlur}
+                                       value={values.confirmPassword}/>
                             </p>
                             {touched.confirmPassword && errors.confirmPassword &&
                             <p className={classes.error}>{errors.confirmPassword}</p>}
