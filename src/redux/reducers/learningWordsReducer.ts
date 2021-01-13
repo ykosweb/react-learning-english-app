@@ -4,23 +4,38 @@ import {
     SET_NUMBER_QUESTIONS_TO_COMPLETE,
     SET_QUESTIONS, SET_UNANSWERED_QUESTIONS,
     TO_NEXT_QUESTION, TOGGLE_LOADING
-} from '../actionsType'
+} from '../actionsType';
+import {QuestionType} from "../TypeScriptTypes";
+
+
+//Types
+
+type AnswerStateType = {
+    [answerId: number]: (null | "error" | "success")
+}
+type ResultItemType = {
+    word: string
+    translation: string
+}
+type InitialStateType = typeof initialState
+
+
 
 let initialState = {
     completed: false,
-    numberQuestionsToComplete: null,
+    numberQuestionsToComplete: null as (null | number),
     loadingData: true,
     successWords: 0,
     activeQuestionNum: 0,
-    questions: [],
-    answerState: null,
-    unansweredQuestions: [],
+    questions: [] as Array<QuestionType>,
+    answerState: null as AnswerStateType | null,
+    unansweredQuestions: [] as Array<number>,
     needToRepeat: false,
-    results: []
+    results: [] as Array<ResultItemType>
 };
 
 
-let learningWordsReducer = (state = initialState, action) => {
+let learningWordsReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case SET_QUESTIONS: {
             return {...state, questions: action.questions}
@@ -61,7 +76,7 @@ let learningWordsReducer = (state = initialState, action) => {
         }
 
         case SET_UNANSWERED_QUESTIONS:
-            let repeatQuestions = [];
+            let repeatQuestions: any = [];
             state.unansweredQuestions.forEach(num => {
                 repeatQuestions.push(state.questions.find(question => question.id === num))
             })

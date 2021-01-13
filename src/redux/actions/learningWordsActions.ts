@@ -5,37 +5,86 @@ import {
     SET_QUESTIONS, SET_UNANSWERED_QUESTIONS,
     TO_NEXT_QUESTION, TOGGLE_LOADING
 } from '../actionsType';
+import {QuestionType} from "../TypeScriptTypes";
 
-//Action Creators
-const setQuestions = (questions) => ({type: SET_QUESTIONS, questions});
-const toggleLoading = (loadingData) => ({type: TOGGLE_LOADING, loadingData});
-const setNumberQuestionsToComplete = () => ({type: SET_NUMBER_QUESTIONS_TO_COMPLETE})
 
-const answerSuccess = (answerId) => ({type: ANSWER_SUCCESS, answerId});
-const answerWrong = (answerId) => ({type: ANSWER_WRONG, answerId});
-const quizComleted = () => ({type: QUIZ_COMPLETE});
-const needToRepeat = () => ({type: NEED_TO_REPEAT});
-const toNextQuestion = () => ({type: TO_NEXT_QUESTION});
-const resetData = () => ({type: RESET_DATA})
+type SetQuestionsActionType = {
+    type: typeof SET_QUESTIONS
+    questions: Array<QuestionType>
+}
+const setQuestions = (questions: Array<QuestionType>): SetQuestionsActionType =>
+    ({type: SET_QUESTIONS, questions});
 
-export const setUnansweredQuestions = () => ({type: SET_UNANSWERED_QUESTIONS});
+type ToggleLoadingActionType = {
+    type: typeof TOGGLE_LOADING
+    loadingData: boolean
+}
+const toggleLoading = (loadingData: boolean): ToggleLoadingActionType =>
+    ({type: TOGGLE_LOADING, loadingData});
+
+type SetNumberQuestionsToCompleteActionType = {
+    type: typeof SET_NUMBER_QUESTIONS_TO_COMPLETE
+}
+const setNumberQuestionsToComplete = (): SetNumberQuestionsToCompleteActionType =>
+    ({type: SET_NUMBER_QUESTIONS_TO_COMPLETE});
+
+type AnswerSuccessActionType = {
+    type: typeof ANSWER_SUCCESS
+    answerId: number
+}
+const answerSuccess = (answerId: number): AnswerSuccessActionType =>
+    ({type: ANSWER_SUCCESS, answerId});
+
+type AnswerWrongActionType = {
+    type: typeof ANSWER_WRONG
+    answerId: number
+}
+const answerWrong = (answerId: number): AnswerWrongActionType =>
+    ({type: ANSWER_WRONG, answerId});
+
+type QuizComletedActionType = {
+    type: typeof QUIZ_COMPLETE
+}
+const quizComleted = (): QuizComletedActionType => ({type: QUIZ_COMPLETE});
+
+type NeedToRepeatActionType = {
+    type: typeof NEED_TO_REPEAT
+}
+const needToRepeat = (): NeedToRepeatActionType => ({type: NEED_TO_REPEAT});
+
+type ToNextQuestionActionType = {
+    type: typeof TO_NEXT_QUESTION
+}
+const toNextQuestion = (): ToNextQuestionActionType => ({type: TO_NEXT_QUESTION});
+
+type ResetDataActionType = {
+    type: typeof RESET_DATA
+}
+const resetData = (): ResetDataActionType => ({type: RESET_DATA})
+
+type SetUnansweredQuestionsActionType = {
+    type: typeof SET_UNANSWERED_QUESTIONS
+}
+
+export const setUnansweredQuestions = (): SetUnansweredQuestionsActionType =>
+    ({type: SET_UNANSWERED_QUESTIONS});
 
 //Thunk
 
 //Получение массива вопросов с БД
 export const getQuestions =
     (quantityQuestions = 10) =>
-        (dispatch, getState, {getFirebase, getFirestore}) => {
+        (dispatch: any, getState: any, {getFirebase, getFirestore}: any) => {
             dispatch(resetData());
-            let questions = [];
+            let questions: Array<QuestionType> = [];
             const learningWordsScore = getState().firebase.profile.learningWordsScore;
             getFirestore()
                 .collection('questions')
                 .where("id", ">=", learningWordsScore + 1)
                 .where("id", "<=", learningWordsScore + 10)
                 .get()
-                .then((snapshot) => {
-                    snapshot.forEach((item) => {
+                .then((snapshot: any) => {
+                    snapshot.forEach((item: any) => {
                         questions.push(item.data());
                     });
                     questions.sort((a, b) => {
@@ -53,14 +102,14 @@ export const getQuestions =
                     dispatch(setNumberQuestionsToComplete());
                     dispatch(toggleLoading(false));
                 })
-                .catch(error => {
+                .catch((error: any) => {
                     console.log(error)
                 })
         }
 
 //Действия после выбора ответа пользователем
-export const choseAnswer = (answerId) =>
-    (dispatch, getState) => {
+export const choseAnswer = (answerId: number) =>
+    (dispatch: any, getState: any) => {
         let {questions, activeQuestionNum} = getState().learningWordsPage;
         let currentQuestion = questions[activeQuestionNum];
 
@@ -83,33 +132,33 @@ export const choseAnswer = (answerId) =>
 
 //После прохождения пользователем 10 слов, получаем текущее значение пользовательского прогресса и увеличиваем на 10
 export const setUserScore = () =>
-        (dispatch, getState, {getFirebase, getFirestore}) => {
+        (dispatch: any, getState: any, {getFirebase, getFirestore}: any) => {
             const uid = getState().firebase.auth.uid;
             getFirestore()
                 .collection('users')
                 .doc(uid)
                 .get()
-                .then((snapshot) => {
+                .then((snapshot: any) => {
                     let score = snapshot.data().learningWordsScore;
                     return score;
                 })
-                .then((score) => {
+                .then((score: any) => {
                     getFirestore().collection('users').doc(uid).set({
                         learningWordsScore: score + 10
                     }, {merge: true})
                 })
 }
 
-export const getCompoundQueries = (min, max) => {
-    return (dispatch, getState, {getFirestore}) => {
-        let questions = [];
+export const getCompoundQueries = (min: number, max: number) => {
+    return (dispatch: any, getState: any, {getFirestore}: any) => {
+        let questions: Array<QuestionType> = [];
         const firestore = getFirestore();
         firestore.collection('questions')
             .where("id", ">=", min)
             .where("id", "<=", max)
             .get()
-            .then(snapshot => {
-                snapshot.forEach(item => {
+            .then((snapshot: any) => {
+                snapshot.forEach((item: any) => {
                     questions.push(item.data())
                 })
             }).then(() => {
