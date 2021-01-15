@@ -5,21 +5,9 @@ import {
     SET_QUESTIONS, SET_UNANSWERED_QUESTIONS,
     TO_NEXT_QUESTION, TOGGLE_LOADING
 } from '../actionsType';
-import {QuestionType} from "../TypeScriptTypes";
+import {AnswerStateType, QuestionType, ResultItemType} from "../TypeScriptTypes";
 
-
-//Types
-
-type AnswerStateType = {
-    [answerId: number]: (null | "error" | "success")
-}
-type ResultItemType = {
-    word: string
-    translation: string
-}
 type InitialStateType = typeof initialState
-
-
 
 let initialState = {
     completed: false,

@@ -4,3 +4,10 @@ export type QuestionType = {
     rightAnswerId: number
     id: number
 }
+export type AnswerStateType = {
+    [answerId: number]: (null | "error" | "success")
+}
+export type ResultItemType = {
+    word: string
+    translation: string
+}
