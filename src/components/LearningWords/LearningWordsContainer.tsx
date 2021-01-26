@@ -7,21 +7,21 @@ import RepeatedPage from "./RepeatedPage/RepeatedPage";
 import {
   choseAnswer,
   getQuestions,
-  setUnansweredQuestions,
-  setUserScore
+  setUnansweredQuestions
 } from "../../redux/actions/learningWordsActions";
 import {compose} from "redux";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 import {AnswerStateType, QuestionType, ResultItemType} from "../../redux/TypeScriptTypes";
+import {AppStateType} from "../../redux/reducers/rootReducer";
 
 type MapStatePropsType = {
-  loadingData: boolean,
-  questions: Array<QuestionType>,
-  activeQuestionNum: number,
-  successWords: number,
-  answerState: AnswerStateType,
-  needToRepeat: boolean,
-  completed: boolean,
+  loadingData: boolean
+  questions: Array<QuestionType>
+  activeQuestionNum: number
+  successWords: number
+  answerState: null | AnswerStateType
+  needToRepeat: boolean
+  completed: boolean
   results: Array<ResultItemType>
 }
 
@@ -69,6 +69,7 @@ class LearningWordsContainer extends React.Component<PropsType> {
 
 
   render() {
+    debugger;
     return (
         <>
           {this.props.loadingData
@@ -82,16 +83,16 @@ class LearningWordsContainer extends React.Component<PropsType> {
 }
 
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
-    loadingData: state.learningWordsPage.loadingData,
-    questions: state.learningWordsPage.questions,
-    activeQuestionNum: state.learningWordsPage.activeQuestionNum,
-    successWords: state.learningWordsPage.successWords,
-    answerState: state.learningWordsPage.answerState,
-    needToRepeat: state.learningWordsPage.needToRepeat,
-    completed: state.learningWordsPage.completed,
-    results: state.learningWordsPage.results
+    loadingData: state.learningWords.loadingData,
+    questions: state.learningWords.questions,
+    activeQuestionNum: state.learningWords.activeQuestionNum,
+    successWords: state.learningWords.successWords,
+    answerState: state.learningWords.answerState,
+    needToRepeat: state.learningWords.needToRepeat,
+    completed: state.learningWords.completed,
+    results: state.learningWords.results
   }
 };
 
@@ -99,12 +100,12 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     getQuestions: () => dispatch(getQuestions()),
     choseAnswer: (answerId: number) => dispatch(choseAnswer(answerId)),
-    setUnansweredQuestions: () => dispatch(setUnansweredQuestions()),
-    setUserScore: () => dispatch(setUserScore())
+    setUnansweredQuestions: () => dispatch(setUnansweredQuestions())
   }
 }
 
-
+//<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
+//<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect)

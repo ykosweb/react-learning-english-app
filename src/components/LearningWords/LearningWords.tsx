@@ -9,7 +9,7 @@ type PropsType = {
     successWords: number
     questions: Array<QuestionType>
     choseAnswer: () => void
-    answerState: AnswerStateType
+    answerState: null | AnswerStateType
     activeQuestionNum: number
 }
 

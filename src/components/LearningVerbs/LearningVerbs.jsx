@@ -5,66 +5,58 @@ import * as yup from "yup";
 import * as classNames from "classnames";
 
 const LearningVerbs = props => {
-
-    let infinitive = 'человек';
-    let [infinitiveClass, setInfinitiveClass] = useState("field");
-
     const validationSchema = yup.object().shape({
-        infinitive: yup.string('человек').required("Поле обязательон для ввода"),
+        infinitive: yup.string().required("Поле обязательон для ввода"),
         pastSimple: yup.string().required("Поле обязательон для ввода"),
         pastParticle: yup.string().required("Поле обязательон для ввода")
     })
-    const validate = (values, props /* only available when using withFormik */) => {
-        const errors = {};
+    const handleSubmit = () => {
+        validationSchema.validate({infinitive: props.verbs[0], pastSimple: props.verbs[1], pastParticle: props.verbs[2]}).then((valid) => {
+            console.log(valid, "успех")
+        }).catch(() => {
+            console.log("error")
+        })
+    }
 
-        if (!values.email) {
-            errors.email = 'Required';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-            errors.email = 'Invalid email address';
-        }
-
-        //...
-
-        return errors;
-    };
 
     return (
         <div className={classes.learningVerbs}>
             <h2>Введите три формы глагола</h2>
             <Formik
                 initialValues={{
-                    Infinitive: '',
+                    infinitive: '',
                     pastSimple: '',
                     pastParticle: '',
                 }}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={handleSubmit}
                 validationSchema={validationSchema}
                 validateOnBlur
-                validate
             >
-                {({errors, touched, isValidating, validateForm, isValid, validate}) => (
+                {( {values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty} ) => (
                     <Form>
                         <div>
-                            <p>Глагол "бежать"</p>
+                            <p>Глагол <strong className={classes.activeVerb}>{props.verbItem.verb}</strong></p>
                         </div>
                         <div className={classes.fieldsBlock}>
                             <label htmlFor="Infinitive">Infinitive:</label>
                             <Field
-                                id="Infinitive"
-                                name="Infinitive"
-                                className={infinitiveClass}
-                                isValid={isValid}
-                                validate={validate}
+                                type="text"
+                                name="infinitive"
+                                value={values.infinitive}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                             />
-                            {errors.Infinitive && touched.Infinitive &&
-                            <div className={classes.error}>{errors.Infinitive}</div>
+                            {errors.infinitive && touched.infinitive &&
+                            <div className={classes.error}>{errors.infinitive}</div>
                             }
 
                             <label htmlFor="pastSimple">Past Simple:</label>
                             <Field
-                                id="pastSimple"
+                                type="text"
                                 name="pastSimple"
-                                // className={clsField.join(' ')}
+                                value={values.pastSimple}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                             />
                             {errors.pastSimple && touched.pastSimple &&
                             <div className={classes.error}>{errors.pastSimple}</div>
@@ -72,9 +64,11 @@ const LearningVerbs = props => {
 
                             <label htmlFor="pastParticle">Past Participle:</label>
                             <Field
-                                id="pastParticle"
+                                type="text"
                                 name="pastParticle"
-                                // className={clsField.join(' ')}
+                                value={values.pastParticle}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                             />
                             {errors.pastParticle && touched.pastParticle &&
                             <div className={classes.error}>{errors.pastParticle}</div>
@@ -83,7 +77,8 @@ const LearningVerbs = props => {
                             <button
                                 type="submit"
                                 className="btn btn-success"
-                                onClick={() => validateForm().then(() => console.log('blah'))}
+                                disabled={!isValid && !dirty}
+                                onClick={handleSubmit}
                             >Проверить</button>
                         </div>
                     </Form>

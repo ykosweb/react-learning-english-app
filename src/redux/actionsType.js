@@ -1,6 +1,6 @@
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';
 
-
-//learningWordsReducer
+//learningWords
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const SET_NUMBER_QUESTIONS_TO_COMPLETE = 'SET_NUMBER_QUESTIONS_TO_COMPLETE';
 export const ANSWER_SUCCESS = 'ANSWER_SUCCESS';
@@ -9,6 +9,9 @@ export const TO_NEXT_QUESTION = 'TO_NEXT_QUESTION';
 export const NEED_TO_REPEAT = 'NEED_TO_REPEAT';
 export const QUIZ_COMPLETE = 'QUIZ_COMPLETE';
 export const SET_UNANSWERED_QUESTIONS = 'SET_UNANSWERED_QUESTIONS';
-export const TOGGLE_LOADING = 'TOGGLE_LOADING';
 export const RESET_DATA = 'RESET_DATA';
+
+//learningVerbs
+export const SET_VERBS = 'SET_VERBS';
+
 

@@ -5,7 +5,7 @@ export type QuestionType = {
     id: number
 }
 export type AnswerStateType = {
-    [answerId: number]: (null | "error" | "success")
+    [answerId: number]: "error" | "success"
 }
 export type ResultItemType = {
     word: string

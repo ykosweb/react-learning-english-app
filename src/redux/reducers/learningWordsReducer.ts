@@ -9,6 +9,7 @@ import {AnswerStateType, QuestionType, ResultItemType} from "../TypeScriptTypes"
 
 type InitialStateType = typeof initialState
 
+
 let initialState = {
     completed: false,
     numberQuestionsToComplete: null as (null | number),
