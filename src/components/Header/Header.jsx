@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './Header.module.sass';
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
@@ -14,9 +14,10 @@ const Header = (props) => {
             </div>
 
             <nav>
-                <NavLink to="/" className={classes.menuLink}>Главная</NavLink>
-                <NavLink to="learning-words" className={classes.menuLink}>Учим Cлова</NavLink>
-                <NavLink to="learning-verbs" className={classes.menuLink}>Неправильные глаголы</NavLink>
+
+                <Link to="/" className={classes.menuLink}>Главная</Link>
+                <Link to="/learning-words" className={classes.menuLink}>Учим Cлова</Link>
+                <Link to="/learning-verbs" className={classes.menuLink}>Неправильные глаголы</Link>
             </nav>
 
             {props.auth.uid

@@ -1,9 +1,9 @@
 import {
     ANSWER_SUCCESS,
-    ANSWER_WRONG, NEED_TO_REPEAT, QUIZ_COMPLETE, RESET_DATA,
+    ANSWER_WRONG, LOADING_QUESTIONS, NEED_TO_REPEAT, QUIZ_COMPLETE, RESET_DATA,
     SET_NUMBER_QUESTIONS_TO_COMPLETE,
     SET_QUESTIONS, SET_UNANSWERED_QUESTIONS,
-    TO_NEXT_QUESTION, TOGGLE_LOADING
+    TO_NEXT_QUESTION
 } from '../actionsType';
 import {AnswerStateType, QuestionType, ResultItemType} from "../TypeScriptTypes";
 
@@ -13,7 +13,7 @@ type InitialStateType = typeof initialState
 let initialState = {
     completed: false,
     numberQuestionsToComplete: null as (null | number),
-    loadingData: true,
+    loadingQuestions: true,
     successWords: 0,
     activeQuestionNum: 0,
     questions: [] as Array<QuestionType>,
@@ -79,9 +79,9 @@ let learningWordsReducer = (state = initialState, action: any): InitialStateType
                 needToRepeat: false,
 
             }
-        case TOGGLE_LOADING: {
+        case LOADING_QUESTIONS: {
             return {
-                ...state, loadingData: action.loadingData
+                ...state, loadingQuestions: action.loadingQuestions
             }
         }
         case RESET_DATA: {

@@ -6,14 +6,19 @@ import Preloader from "../UI/Preloader/Preloader";
 
 class LearningVerbsContainer extends React.Component {
     componentDidMount() {
-        this.props.getVerbs()
+        if (this.props.verbs.length === 0) {
+            this.props.getVerbs();
+        }
+
+    }
+    componentWillUnmount() {
+        alert("unmount")
     }
 
     render() {
-        debugger;
         return (
             <>
-                {this.props.toggleLoading
+                {this.props.loadingVerbs
                     ? <Preloader />
                     : <LearningVerbs
                         verbItem={this.props.verbs[this.props.activeVerbNumber]}
@@ -28,7 +33,7 @@ const mapStateToProps = (state) => {
     return {
         verbs: state.learningVerbs.verbs,
         activeVerbNumber: state.learningVerbs.activeVerbNumber,
-        toggleLoading: state.learningVerbs.toggleLoading
+        loadingVerbs: state.learningVerbs.loadingVerbs
     }
 }
 

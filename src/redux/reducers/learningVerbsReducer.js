@@ -1,10 +1,9 @@
-import {SET_VERBS, TOGGLE_LOADING} from "../actionsType";
-
+import {SET_VERBS, LOADING_VERBS} from "../actionsType";
 
 const initialState = {
     verbs: [],
     activeVerbNumber: 0,
-    toggleLoading: true
+    loadingVerbs: true
 };
 
 const learningVerbsReducer = (state = initialState, action) => {
@@ -14,9 +13,9 @@ const learningVerbsReducer = (state = initialState, action) => {
                 {...state, verbs: action.verbs}
             )
         }
-        case TOGGLE_LOADING: {
+        case LOADING_VERBS: {
             return (
-                {...state, toggleLoading: false}
+                {...state, loadingVerbs: false}
             )
 
         }

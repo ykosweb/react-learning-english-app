@@ -1,7 +1,7 @@
-import {TOGGLE_LOADING} from "../actionsType";
+import {LOADING_VERBS} from "../actionsType";
 
 const setVerbs = (verbs) => ({type: 'SET_VERBS', verbs});
-const toggleLoading = (loadingData) => ({type: TOGGLE_LOADING, loadingData});
+const loadingVerbs = (loadingVerbs) => ({type: LOADING_VERBS, loadingVerbs});
 
 export const getVerbs = () =>
     (dispatch, getState, {getFirebase, getFirestore}) => {
@@ -28,7 +28,7 @@ export const getVerbs = () =>
             })
             .then(() => {
                 dispatch(setVerbs(verbs));
-                dispatch(toggleLoading(false));
+                dispatch(loadingVerbs(false));
             })
             .catch((error) => {
                 console.log(error)

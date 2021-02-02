@@ -15,7 +15,7 @@ import {AnswerStateType, QuestionType, ResultItemType} from "../../redux/TypeScr
 import {AppStateType} from "../../redux/reducers/rootReducer";
 
 type MapStatePropsType = {
-  loadingData: boolean
+  loadingQuestions: boolean
   questions: Array<QuestionType>
   activeQuestionNum: number
   successWords: number
@@ -39,6 +39,9 @@ class LearningWordsContainer extends React.Component<PropsType> {
     if (this.props.questions.length === 0) {
       this.props.getQuestions();
     }
+  }
+  componentWillUnmount(): void {
+    console.log("unmount")
   }
 
   pageContentHandler = () => {
@@ -69,10 +72,9 @@ class LearningWordsContainer extends React.Component<PropsType> {
 
 
   render() {
-    debugger;
     return (
         <>
-          {this.props.loadingData
+          {this.props.loadingQuestions
               ? <Preloader />
               : this.pageContentHandler()}
         </>
@@ -85,7 +87,7 @@ class LearningWordsContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
-    loadingData: state.learningWords.loadingData,
+    loadingQuestions: state.learningWords.loadingQuestions,
     questions: state.learningWords.questions,
     activeQuestionNum: state.learningWords.activeQuestionNum,
     successWords: state.learningWords.successWords,

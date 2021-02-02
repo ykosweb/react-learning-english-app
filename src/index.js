@@ -12,8 +12,8 @@ import {ReactReduxFirebaseProvider, getFirebase, reactReduxFirebase} from "react
 import fbConfig from "./config/fbConfig";
 import firebase from "firebase/app";
 import {BrowserRouter} from "react-router-dom";
-import { useSelector  } from 'react-redux'
-import { isLoaded  } from 'react-redux-firebase';
+import {useSelector} from 'react-redux'
+import {isLoaded} from 'react-redux-firebase';
 import Preloader from "./components/UI/Preloader/Preloader";
 
 
@@ -43,23 +43,23 @@ const rrfProps = {
     createFirestoreInstance
 };
 
-function AuthIsLoaded({ children }) {
+function AuthIsLoaded({children}) {
     const profile = useSelector(state => state.firebase.profile);
     if (!isLoaded(profile)) {
-        return <Preloader />;
+        return <Preloader/>;
     }
     return children
 }
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <ReactReduxFirebaseProvider {...rrfProps}>
-                <AuthIsLoaded>
+    <Provider store={store}>
+        <ReactReduxFirebaseProvider {...rrfProps}>
+            <AuthIsLoaded>
+                <BrowserRouter>
                     <App/>
-                </AuthIsLoaded>
-            </ReactReduxFirebaseProvider>
-        </Provider>
-    </BrowserRouter>,
+                </BrowserRouter>
+            </AuthIsLoaded>
+        </ReactReduxFirebaseProvider>
+    </Provider>,
     document.getElementById("root")
 );

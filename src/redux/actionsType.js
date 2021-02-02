@@ -1,6 +1,5 @@
-export const TOGGLE_LOADING = 'TOGGLE_LOADING';
-
 //learningWords
+export const LOADING_QUESTIONS = 'IS_QUESTION_LOADING';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const SET_NUMBER_QUESTIONS_TO_COMPLETE = 'SET_NUMBER_QUESTIONS_TO_COMPLETE';
 export const ANSWER_SUCCESS = 'ANSWER_SUCCESS';
@@ -13,5 +12,6 @@ export const RESET_DATA = 'RESET_DATA';
 
 //learningVerbs
 export const SET_VERBS = 'SET_VERBS';
+export const LOADING_VERBS = 'LOADING_VERBS';
 
 

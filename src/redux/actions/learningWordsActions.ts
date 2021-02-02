@@ -3,7 +3,7 @@ import {
     ANSWER_WRONG, NEED_TO_REPEAT, QUIZ_COMPLETE, RESET_DATA,
     SET_NUMBER_QUESTIONS_TO_COMPLETE,
     SET_QUESTIONS, SET_UNANSWERED_QUESTIONS,
-    TO_NEXT_QUESTION, TOGGLE_LOADING
+    TO_NEXT_QUESTION, LOADING_QUESTIONS
 } from '../actionsType';
 import {QuestionType} from "../TypeScriptTypes";
 
@@ -15,12 +15,12 @@ type SetQuestionsActionType = {
 const setQuestions = (questions: Array<QuestionType>): SetQuestionsActionType =>
     ({type: SET_QUESTIONS, questions});
 
-type ToggleLoadingActionType = {
-    type: typeof TOGGLE_LOADING
-    loadingData: boolean
+type LoadingQuestionsActionType = {
+    type: typeof LOADING_QUESTIONS
+    loadingQuestions: boolean
 }
-const toggleLoading = (loadingData: boolean): ToggleLoadingActionType =>
-    ({type: TOGGLE_LOADING, loadingData});
+const isQuestionLoading = (loadingQuestions: boolean): LoadingQuestionsActionType =>
+    ({type: LOADING_QUESTIONS, loadingQuestions});
 
 type SetNumberQuestionsToCompleteActionType = {
     type: typeof SET_NUMBER_QUESTIONS_TO_COMPLETE
@@ -100,7 +100,7 @@ export const getQuestions =
                 .then(() => {
                     dispatch(setQuestions(questions));
                     dispatch(setNumberQuestionsToComplete());
-                    dispatch(toggleLoading(false));
+                    dispatch(isQuestionLoading(false));
                 })
                 .catch((error: any) => {
                     console.log(error)
@@ -110,13 +110,13 @@ export const getQuestions =
 //Действия после выбора ответа пользователем
 export const choseAnswer = (answerId: number) =>
     (dispatch: any, getState: any) => {
-        let {questions, activeQuestionNum} = getState().learningWordsPage;
+        let {questions, activeQuestionNum} = getState().learningWords;
         let currentQuestion = questions[activeQuestionNum];
 
         (answerId === currentQuestion.rightAnswerId)
             ? dispatch(answerSuccess(answerId))
             : dispatch(answerWrong(answerId))
-        let {successWords} = getState().learningWordsPage;
+        let {successWords} = getState().learningWords;
         setTimeout(() => {
             if (successWords === 10) {
                 dispatch(quizComleted());
