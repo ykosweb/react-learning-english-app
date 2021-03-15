@@ -9,21 +9,16 @@ class LearningVerbsContainer extends React.Component {
         if (this.props.verbs.length === 0) {
             this.props.getVerbs();
         }
-
-    }
-    componentWillUnmount() {
-        alert("unmount")
     }
 
     render() {
+        debugger;
         return (
             <>
                 {this.props.loadingVerbs
                     ? <Preloader />
                     : <LearningVerbs
-                        verbItem={this.props.verbs[this.props.activeVerbNumber]}
-
-                    />}
+                        verbItem={this.props.verbs[this.props.activeVerbNumber]}/>}
             </>
         )
     }

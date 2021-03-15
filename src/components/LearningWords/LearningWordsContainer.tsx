@@ -40,9 +40,6 @@ class LearningWordsContainer extends React.Component<PropsType> {
       this.props.getQuestions();
     }
   }
-  componentWillUnmount(): void {
-    console.log("unmount")
-  }
 
   pageContentHandler = () => {
     if (this.props.completed) {

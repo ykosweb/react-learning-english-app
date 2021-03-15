@@ -12,11 +12,10 @@ import Profile from "./components/Profile/Profile";
 import Friends from "./components/Friends/Friends";
 import Results from "./components/Results/Results";
 import About from "./components/About/About";
-import {
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import {Route} from "react-router-dom";
+import withTrackLocation from "./components/hoc/withTrackLocation";
+
+
 
 class App extends React.Component {
 

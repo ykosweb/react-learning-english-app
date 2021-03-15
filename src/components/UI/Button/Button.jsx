@@ -1,17 +1,17 @@
 import React from "react";
 import classes from './Button.module.sass';
 
-const Button = props => {
+const Button = ({bootstrapType, bootstrapSize, children}) => {
     const cls = [classes.buttonCls, 'btn'];
-    if (props.bootstrapType) {
-        cls.push(props.bootstrapType)
+    if (bootstrapType) {
+        cls.push(bootstrapType)
     }
-    if (props.bootstrapSize) {
-        cls.push(props.bootstrapSize)
+    if (bootstrapSize) {
+        cls.push(bootstrapSize)
     }
     return (
         <button className={cls.join(' ')}>
-            {props.text}
+            {children}
         </button>
     )
 };

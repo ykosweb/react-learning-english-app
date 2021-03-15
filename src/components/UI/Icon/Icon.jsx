@@ -1,10 +1,11 @@
 import React from "react";
 import classNames from 'classnames';
-import "font-awesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Icon = ({name, className, size}) => {
 
-    const elemSize = size ? {fontSize: `${size}rem`} : null
+
+const Icon = ({name, className, size, onClick}) => {
 
     const classes = classNames(
         'fa',
@@ -12,11 +13,10 @@ const Icon = ({name, className, size}) => {
         className
     )
 
+    const elemSize = size ? { fontSize: `${size}rem` } : null
+
     return (
-        <i
-            className={classes}
-            style={elemSize}
-        />
+        <FontAwesomeIcon icon={faCheck} />
     )
 };
 

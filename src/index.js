@@ -11,10 +11,13 @@ import {reduxFirestore, getFirestore, createFirestoreInstance} from "redux-fires
 import {ReactReduxFirebaseProvider, getFirebase, reactReduxFirebase} from "react-redux-firebase";
 import fbConfig from "./config/fbConfig";
 import firebase from "firebase/app";
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
 import {useSelector} from 'react-redux'
 import {isLoaded} from 'react-redux-firebase';
 import Preloader from "./components/UI/Preloader/Preloader";
+import history from './../src/config/history';
+import '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/react-fontawesome';
 
 
 const composeEnhancers =
@@ -52,12 +55,12 @@ function AuthIsLoaded({children}) {
 }
 
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={store} >
         <ReactReduxFirebaseProvider {...rrfProps}>
             <AuthIsLoaded>
-                <BrowserRouter>
+                <Router history={history}>
                     <App/>
-                </BrowserRouter>
+                </Router>
             </AuthIsLoaded>
         </ReactReduxFirebaseProvider>
     </Provider>,
