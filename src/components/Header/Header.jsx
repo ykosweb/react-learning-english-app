@@ -1,23 +1,24 @@
 import React from "react";
 import classes from './Header.module.sass';
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import {signOut} from "../../redux/actions/authActions";
+import logo from "./../../img/main_logo.png";
 
 const Header = (props) => {
+
     return (
         <header className={classes.header}>
-            <div>
-                <h3 className={classes.appName}>Easy English</h3>
+            <div className={classes.logo}>
+                <img src={logo} alt="Logo" className={classes.logoImg}/>
             </div>
 
             <nav>
-
-                <Link to="/" className={classes.menuLink}>Главная</Link>
-                <Link to="/learning-words" className={classes.menuLink}>Учим Cлова</Link>
-                <Link to="/learning-verbs" className={classes.menuLink}>Неправильные глаголы</Link>
+                <NavLink to="/" className={classes.menuLink} >Главная</NavLink>
+                <NavLink to="/learning-words" className={classes.menuLink} >Учим Cлова</NavLink>
+                <NavLink to="/learning-verbs" className={classes.menuLink} >Неправильные глаголы</NavLink>
             </nav>
 
             {props.auth.uid

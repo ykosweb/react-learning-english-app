@@ -1,22 +1,16 @@
 import React from "react";
 import classNames from 'classnames';
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 
-const Icon = ({name, className, size, onClick}) => {
-
-    const classes = classNames(
-        'fa',
-        `fa-${name}`,
-        className
-    )
-
-    const elemSize = size ? { fontSize: `${size}rem` } : null
-
+const Icon = ({icon, size, color}) => {
     return (
-        <FontAwesomeIcon icon={faCheck} />
+        <FontAwesomeIcon
+            icon={icon}
+            style={{transform: `scale(${size})`, color}}
+        />
     )
 };
 

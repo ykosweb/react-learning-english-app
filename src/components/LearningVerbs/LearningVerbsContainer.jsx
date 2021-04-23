@@ -12,7 +12,6 @@ class LearningVerbsContainer extends React.Component {
     }
 
     render() {
-        debugger;
         return (
             <>
                 {this.props.loadingVerbs
