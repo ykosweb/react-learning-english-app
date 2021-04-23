@@ -1,18 +1,44 @@
 @import "src/sass/_templates"
-.mainPage
-  display: grid
-  grid-template-columns: 1fr 2fr
-  align-items: center
-  background: rgb(0,255,252)
-  background: radial-gradient(circle, rgba(0,255,252,1) 0%, rgba(0,126,156,1) 100%)
-  .about
-    text-align: center
-    padding: 0 40px
+@import "src/sass/variables"
 
-.slider
-  max-width: 90%
-  box-shadow: 3px 3px 5px 5px rgba(0,0,0, .2)
-  h3
-    margin-bottom: 15px
-  a
-    margin-bottom: 10px
+.mainPage
+  position: relative
+  height: 100vh
+  background: url("./../../img/main_bg.jpg") no-repeat
+  background-size: cover
+  &:after
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: rgba(0,0,0,.7)
+    z-index: 2
+
+.mainPageContent
+  display: flex
+  height: 100%
+  flex-direction: row
+  align-items: center
+  position: relative
+  z-index: 3
+  max-width: 1200px
+  margin: 0 auto
+  .mainTitle
+    text-align: center
+    &Span
+      color: $accentColor
+.leftSide
+  flex: 0 0 50%
+  padding: 30px
+.rightSide
+  flex: 0 0 50%
+  height: 100%
+  text-align: center
+  padding: 30px
+  &Content
+    display: flex
+    height: 100%
+    flex-direction: column
+    justify-content: space-evenly

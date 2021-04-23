@@ -1,22 +1,31 @@
 @import "src/sass/_templates"
+@import "src/sass/variables"
 
 .header
-  background: rgba(0,0,0, .4)
+  background: rgba(256, 256 , 256, .3)
   display: grid
-  height: 40px
+  height: 50px
   grid-template-columns: 1fr 4fr 2fr
   align-items: center
   justify-items: center
   position: fixed
+  z-index: 5
   top: 0
   left: 0
   width: 100%
+  border-bottom: 1px solid #888
 .appName
   margin: 0
+.logo
+  height: 100%
+  &Img
+    max-height: 48px
 .menuLink
   @extend .link
   display: inline-block
   margin-right: 25px
+.selected
+  color: $accentColor
 .welcome
   padding-right: 10px
 .loginBlock
