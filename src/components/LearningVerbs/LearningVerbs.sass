@@ -1,6 +1,6 @@
 .learningVerbs
-  background: rgb(183,2,185)
-  background: radial-gradient(circle, rgba(183,2,185,1) 0%, rgba(68,0,131,1) 100%)
+  background: rgb(0,149,176)
+  background: radial-gradient(circle, rgba(0,149,176,1) 0%, rgba(0,99,112,1) 100%)
   display: flex
   flex-direction: column
   align-content: center
@@ -32,6 +32,19 @@
         box-shadow: inset 0px 0px 4px 2px rgba(10,125,21,0.61)
       &:invalid
         border: 1px solid red
+      &:disabled
+        background: #2b8712
+        color: #fff
+
+.activeWord
+  text-align: center
+  text-transform: uppercase
+  padding: 5px
+  border: 1px solid #ffffff
+  border-radius: 5px
+.errorMessage
+  color: #f01f30
+  font-weight: bold
 .verbInputBlock
   width: 300px
   position: relative

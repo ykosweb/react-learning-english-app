@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Input from "../UI/Input/Input";
 import './LearningVerbs.sass'
 import Icon from "../UI/Icon/Icon";
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import {faCheckCircle, faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
 
 const LearningVerbs = (props) => {
     const [inputsData, setInputsData] = useState([
@@ -57,66 +57,92 @@ const LearningVerbs = (props) => {
     }
 
     const validateInput = (currentInput, validation) => {
-        // if(!validation) return true;
-        //
-        // let isValid = true;
-        // if (validation.required) {
-        //     // если у нас не пустая строка и isValid не равен false, то isValid будет true
-        //     isValid = value.trim() !== '' && isValid;
-        // }
-        // if(validation.minLength) {
-        //     isValid = value.length >= validation.minLength && isValid;
-        // }
         let {value, inputNumber} = currentInput;
         if (value.trim() === props.verbItem.forms[inputNumber]) {
             setValidationState({...validationState, validationState})
         }
     }
 
-    const onChangeHandler = (event, input) => {
+    const onChangeHandler = (event, inputItem) => {
+
         const newInputsData = [...inputsData];
-        const currentInput = {...newInputsData[input.inputNumber]};
+        const currentInput = {...newInputsData[inputItem.inputNumber]};
+        const rightWord = props.verbItem.forms[inputItem.inputNumber];
 
         currentInput.value = event.target.value;
         currentInput.touched = true;
-        newInputsData[input.inputNumber] = currentInput;
+        if (rightWord === currentInput.value.trim().toLowerCase()) {
+            currentInput.valid = true;
+            currentInput.errorMessage = '';
+        }
+        newInputsData[inputItem.inputNumber] = currentInput;
         validateInput(currentInput, currentInput.validation)
-
         setInputsData(newInputsData);
+    };
+    const onBlurHandler = (event, inputItem) => {
+        const rightWord = props.verbItem.forms[inputItem.inputNumber];
+        const newInputsData = [...inputsData];
+        const currentInput = {...newInputsData[inputItem.inputNumber]};
+        if (!currentInput.validation) {
+            currentInput.valid = true;
+        }
+        if (currentInput.value.length < inputItem.validation.minLength) {
+            currentInput.valid = false;
+            currentInput.errorMessage = 'Слишком короткое значение.';
+            return;
+        }
+        if (currentInput.value.trim().toLowerCase() !== rightWord) {
+            currentInput.errorMessage = 'Не верно, попробуйте другой вариант'
+        }
+        newInputsData[inputItem.inputNumber] = currentInput;
+
+        setInputsData(newInputsData)
     }
 
     const renderInputs = () => {
-        return inputsData.map((input, index) => {
+        return inputsData.map((inputItem, index) => {
             return (
-                <div className={"verbInputBlock"} key={index + input.label}>
+                <div className={"verbInputBlock"} key={index + inputItem.label}>
                     <Input
-                        inputNuber={input.inputNumber}
-                        type={input.type}
-                        value={input.value}
-                        valid={input.valid}
-                        touched={input.touched}
-                        label={input.label + ':'}
-                        errorMessage={input.errorMessage}
-                        shouldValidate={!!input.validation}
-                        onChange={event => onChangeHandler(event, input)}
+                        disabled={inputItem.valid}
+                        inputNuber={inputItem.inputNumber}
+                        type={inputItem.type}
+                        value={inputItem.value}
+                        valid={inputItem.valid}
+                        touched={inputItem.touched}
+                        label={inputItem.label + ':'}
+                        errorMessage={inputItem.errorMessage}
+                        shouldValidate={!!inputItem.validation}
+                        onChange={event => onChangeHandler(event, inputItem)}
+                        onBlur={event => onBlurHandler(event, inputItem)}
                     />
-                    <Icon icon={faCheckCircle} color={"green"} size={1.5}/>
+                    {inputItem.valid
+                        ? <Icon icon={faCheckCircle} color={"#2bc712"} size={1.5}/>
+                        : null
+                    }
+                    {inputItem.errorMessage
+                        ? <Icon icon={faExclamationTriangle} color={"red"} size={1.5}/>
+                        : null
+                    }
+                    {inputItem.errorMessage
+                        ? <div className={"errorMessage"}> {inputItem.errorMessage} </div>
+                        : null
+                    }
                 </div>
             )
         })
     }
 
 
-
-
     return (
         <div className='learningVerbs'>
             <div>
-                <p>Глагол - <span>{props.verbItem.verb}</span></p>
+                <p>Глагол - <strong className='activeWord'>{props.verbItem.verb}</strong></p>
             </div>
             <form className='verbsForm'>
                 {renderInputs()}
-                <button disabled={validationState.infinitive } className="btn btn-success">Следующий глагол</button>
+                <button disabled={inputsData[0].valid || inputsData[1].valid || inputsData[2].valid === false}
+                        className="btn btn-success">Следующий глагол</button>
             </form>
         </div>
 
