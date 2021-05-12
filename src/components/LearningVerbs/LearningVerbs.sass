@@ -1,65 +1,23 @@
-.learningVerbs
+@import "src/sass/_templates"
+.learningVerbsPage
   background: rgb(0,149,176)
   background: radial-gradient(circle, rgba(0,149,176,1) 0%, rgba(0,99,112,1) 100%)
-  display: flex
-  flex-direction: column
-  align-content: center
-  align-items: center
-  justify-content: center
-  h2
-    margin-bottom: 15px
-  form
-    border: 1px solid #fff
-    border-radius: 5px
+  &_Wrapper
+    height: 100%
+    max-width: 1200px
+    margin: 0 auto
     display: flex
-    padding: 20px 150px
     flex-direction: column
-    button
-      margin-top: 20px
-      margin-bottom: 20px
-    label
-      margin-bottom: 10px
-      margin-top: 10px
-    input
-      width: 100%
-      border: 1px solid #ccc
-      border-radius: 3px
-      transition: all .2s ease
-      padding: 2px
-      &:focus
-        border: 1px solid rgba(10,125,21,0.61)
-        outline: none
-        box-shadow: inset 0px 0px 4px 2px rgba(10,125,21,0.61)
-      &:invalid
-        border: 1px solid red
-      &:disabled
-        background: #2b8712
-        color: #fff
+    justify-content: center
+    align-items: center
+  &_Form
+    border: 1px solid #fff
+    padding: 40px 80px
+    display: flex
+    flex-direction: column
+  &_InputBlock
+    margin-bottom: 20px
 
-.activeWord
-  text-align: center
-  text-transform: uppercase
-  padding: 5px
-  border: 1px solid #ffffff
-  border-radius: 5px
-.errorMessage
-  color: #f01f30
-  font-weight: bold
-.verbInputBlock
-  width: 300px
-  position: relative
-  svg
-    position: absolute
-    top: 50px
-    right: -25px
-.activeVerb
-  text-align: center
-  text-transform: uppercase
-  padding: 5px
-  border: 1px solid #ffffff
-  border-radius: 5px
-.fieldSuccess
-  border: 5px solid green
-.error
-  color: red
-  font-weight: bold
+input
+  @extend .input
+
